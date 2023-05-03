@@ -5,7 +5,7 @@ import { buttonStyles } from "./Button.styles";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "../../Utils/Colors";
 
-export default function Buttn({ label, buttonType }) {
+export default function Buttn({ label, buttonType,onPressHandler }) {
   return (
     <Pressable
       style={({ pressed }) =>
@@ -18,6 +18,7 @@ export default function Buttn({ label, buttonType }) {
           : [buttonStyles.button, buttonStyles[buttonType]]
       }
       android_ripple={{ color: Colors.White }}
+      onPress={onPressHandler}
     >
       <Ionicons name="chevron-forward-outline" size={20} color="white" />
       <Text style={buttonStyles.text}>{label}</Text>
