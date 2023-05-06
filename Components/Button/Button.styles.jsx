@@ -12,11 +12,12 @@ export const buttonStyles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     flex: 1,
-    maxHeight: 50,
+    maxHeight: 45,
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 10,
+    paddingVertical: 8,
     paddingHorizontal: 10,
+    borderRadius: 8, 
   },
 
   primary: {

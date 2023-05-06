@@ -2,10 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Pressable } from "react-native";
 import { buttonStyles } from "./Button.styles";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+
 import { Colors } from "../../Utils/Colors";
 
-export default function Buttn({ label, buttonType,onPressHandler }) {
+export default function Buttn({ label, buttonType,onPressHandler, icon }) {
   return (
     <Pressable
       style={({ pressed }) =>
@@ -20,7 +21,7 @@ export default function Buttn({ label, buttonType,onPressHandler }) {
       android_ripple={{ color: Colors.White }}
       onPress={onPressHandler}
     >
-      <Ionicons name="chevron-forward-outline" size={20} color="white" />
+      <MaterialIcons name={icon} size={20} color="white" />
       <Text style={buttonStyles.text}>{label}</Text>
     </Pressable>
   );
