@@ -6,16 +6,19 @@ export const styles = StyleSheet.create({
     gap: 10,
   },
   input: {
-    borderColor: Colors.White,
+    borderColor: 'black',
     borderWidth: 2,
     paddingVertical: 10,
     paddingHorizontal: 10,
     color: Colors.White,
     borderRadius: 10,
+    // maxHeight: 48, 
+    backgroundColor: "#3E454D"
+ 
   },
 
   label: {
-    fontSize: 14,
+    fontSize: 13,
     color: Colors.White,
   },
 

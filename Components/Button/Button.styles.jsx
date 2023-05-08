@@ -23,9 +23,17 @@ export const buttonStyles = StyleSheet.create({
   primary: {
     backgroundColor: Colors.secondary,
   },
-
+  primaryOutline: {
+    borderColor: Colors.secondary,
+    borderWidth: 2
+  },
   secondary: {
     backgroundColor: Colors.tertiary,
+  },
+
+  secondaryOutline: {
+    borderColor: Colors.tertiary,
+    borderWidth: 2
   },
 
   pressedIos: {

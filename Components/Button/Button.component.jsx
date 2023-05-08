@@ -6,7 +6,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { Colors } from "../../Utils/Colors";
 
-export default function Buttn({ label, buttonType,onPressHandler, icon }) {
+export default function Buttn({ label, buttonType, onPressHandler, icon }) {
   return (
     <Pressable
       style={({ pressed }) =>

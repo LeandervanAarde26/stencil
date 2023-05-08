@@ -5,6 +5,7 @@ import { styles } from "./Input.styles";
 export default function Input({
   label,
   labelStyle,
+  placeholder,
   inputStyle,
   ...otherProps
 }) {
@@ -20,7 +21,7 @@ export default function Input({
         onBlur={() => {
           setFocus([styles.label, styles.input]);
         }}
-        placeholder="Some Placeholder"
+        placeholder={placeholder}
         placeholderTextColor={"#A0A0A0"}
         underlineColorAndroid="transparent"
         {...otherProps}
