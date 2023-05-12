@@ -8,12 +8,11 @@ export default function Competitions() {
   return (
       <View style={styles.container}>
           <ScrollView 
-          horizontal 
+          horizontal
+          showsHorizontalScrollIndicator={false}
           style={styles.container2}>
             <CompetitionCard/>
-
             <CompetitionCard/>
-
             <CompetitionCard/>
           </ScrollView>
       </View>

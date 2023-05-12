@@ -17,7 +17,7 @@ export default function Home() {
       initialRouteName="Competitions"
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: "#3f2f25" },
+        contentStyle: { backgroundColor: "transparent" },
         tabBarStyle: {
           borderColor: Colors.White,
           borderTopColor: Colors.White,
@@ -25,7 +25,7 @@ export default function Home() {
           borderWidth: 3,
           borderRadius: 14,
           width: "95%",
-          height: 80,
+          height: 70,
           justifyContent: "center",
           alignSelf: "center",
           marginBottom: 25,
@@ -42,7 +42,7 @@ export default function Home() {
         component={Competitions}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="home" color={color} size={40} />
+            <MaterialIcons name="home" color={color} size={30} />
           ),
         }}
       />
@@ -51,7 +51,7 @@ export default function Home() {
         component={Voting}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="leaderboard" color={color} size={40} />
+            <MaterialIcons name="leaderboard" color={color} size={30} />
           ),
         }}
       />
@@ -60,7 +60,7 @@ export default function Home() {
         component={Enter}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="add-circle-outline" color={color} size={40} />
+            <MaterialIcons name="add-circle-outline" color={color} size={30} />
           ),
         }}
       />
@@ -69,7 +69,7 @@ export default function Home() {
         component={Categories}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="groups" color={color} size={40} />
+            <MaterialIcons name="groups" color={color} size={30} />
           ),
         }}
       />
@@ -78,7 +78,7 @@ export default function Home() {
         component={Profile}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="person-outline" color={color} size={40} />
+            <MaterialIcons name="person-outline" color={color} size={30} />
           ),
         }}
       />

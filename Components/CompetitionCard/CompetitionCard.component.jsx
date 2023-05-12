@@ -23,7 +23,7 @@ export default function CompetitionCard() {
         <View style={styles.contestantsContainer}>
           <MaterialIcons
             name={"person-outline"}
-            size={20}
+            size={25}
             color={Colors.secondary}
           />
           <Text style={styles.contestants}>110 Contestants</Text>

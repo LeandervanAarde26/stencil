@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "#141617",
     flex: 1,
     borderRadius: 9,
-    padding: 12,
+    padding: 15,
     gap: 15,
     width: "100%",
   },
@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
   },
 
   image: {
-    width: "60%",
+    width: "55%",
     height: "40%",
     justifyContent: "center",
   },
