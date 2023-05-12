@@ -12,13 +12,19 @@ const defaultValues = {
   confirmedPassword: "",
 };
 
-export default function Register() {
+export default function Register({navigation}) {
   const [values, setValues] = useState(defaultValues);
   const { name, email, contactNumber, password, confirmedPassword } = values;
 
   const handleClick = () => {
-    console.log(values);
-  };
+    navigation.navigate('Home');
+  }
+
+  const registerAccount = () =>{
+    navigation.navigate('Login');
+
+  }
+
 
   return (
     <View style={styles.container}>
@@ -79,7 +85,7 @@ export default function Register() {
         <Buttn
           label={"Register new account"}
           buttonType={"primary"}
-          onPressHandler={null}
+          onPressHandler={handleClick}
           icon={"person-add-alt"}
         />
 
@@ -92,7 +98,7 @@ export default function Register() {
         <Buttn
           label={"Log into my account"}
           buttonType={"secondaryOutline"}
-          onPressHandler={handleClick}
+          onPressHandler={registerAccount}
           icon={"login"}
         />
       </View>

@@ -9,13 +9,19 @@ const defaultValues = {
     password: "",
   };
 
-export default function Login() {
+export default function Login({navigation}) {
 
     const [values, setValues] = useState(defaultValues);
     const {  email,  password } = values;
     const handleClick = () => {
-        console.log(values)
+      navigation.navigate('Home');
     }
+
+    const registerAccount = () =>{
+      navigation.navigate('Register');
+      // console.log("HEY")
+    }
+  
 
   return (
     <View style={styles.container}>
@@ -44,10 +50,10 @@ export default function Login() {
 
       <View style={styles.buttonsContainer}>
         <Buttn
-          label={"Register new account"}
+          label={"Log into my account"}
           buttonType={"secondary"}
-          onPressHandler={null}
-          icon={"person-add-alt"}
+          onPressHandler={handleClick}
+          icon={"login"}
         />
 
         <View style={styles.orContainer}>
@@ -57,10 +63,10 @@ export default function Login() {
         </View>
 
         <Buttn
-          label={"Log into my account"}
+          label={"Register new account"}
           buttonType={"primaryOutline"}
-          onPressHandler={handleClick}
-          icon={"login"}
+          onPressHandler={registerAccount}
+          icon={"person-add-alt"}
         />
       </View>
     </View>
