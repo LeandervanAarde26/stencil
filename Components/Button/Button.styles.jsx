@@ -17,7 +17,7 @@ export const buttonStyles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 8,
     paddingHorizontal: 10,
-    borderRadius: 8, 
+    borderRadius: 8,
   },
 
   primary: {
@@ -25,7 +25,7 @@ export const buttonStyles = StyleSheet.create({
   },
   primaryOutline: {
     borderColor: Colors.secondary,
-    borderWidth: 2
+    borderWidth: 2,
   },
   secondary: {
     backgroundColor: Colors.tertiary,
@@ -33,7 +33,7 @@ export const buttonStyles = StyleSheet.create({
 
   secondaryOutline: {
     borderColor: Colors.tertiary,
-    borderWidth: 2
+    borderWidth: 2,
   },
 
   pressedIos: {

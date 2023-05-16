@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
 
     bottomContainer:{
         flex: 1,
-        backgroundColor: "#141617",
+        backgroundColor: Colors.primary,
         borderTopStartRadius: 25,
         borderTopEndRadius: 25,
         padding: 15,
@@ -28,9 +28,14 @@ export const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems: 'center',
         gap: 15,
-        paddingTop: 15
+        paddingTop: 15,
     },
 
+    pressed:{
+        opacity: 0.75
+    }, 
+
+    
     sectionHeader:{
         fontSize: 21,
         color: Colors.White,
@@ -39,8 +44,8 @@ export const styles = StyleSheet.create({
     },
 
     profileImage:{
-        maxWidth: 125,
-        maxHeight: 125,
+        width: 125,
+        height: 125,
         borderRadius: 62.5,
         borderWidth: 3, 
         borderColor: Colors.White

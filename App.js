@@ -15,7 +15,9 @@ export default function App() {
   return (
     <>
       <StatusBar status="light" />
-      <NavigationContainer>
+      <NavigationContainer screenOptions={{
+              backgroundColor: Colors.White,
+      }}>
         <Stack.Navigator
           initialRouteName="Login"
           screenOptions={{

@@ -17,10 +17,13 @@ export default function Home() {
       initialRouteName="Competitions"
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: "transparent" },
+        
+        
+        
         tabBarStyle: {
           borderColor: Colors.White,
           borderTopColor: Colors.White,
+          backgroundColor: 'transparent',
           borderTopWidth: 3,
           borderWidth: 3,
           borderRadius: 14,

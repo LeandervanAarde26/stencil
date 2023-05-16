@@ -6,13 +6,30 @@ import {
   Butto,
   n,
   ScrollView,
+  Pressable,
 } from "react-native";
-import React from "react";
+import React,{useState} from "react";
 import { styles } from "./Profile.styles";
 import Input from "../../Components/Input/Input.component";
 import Buttn from "../../Components/Button/Button.component";
+import * as IPicker from "expo-image-picker";
 
 export default function Profile() {
+
+  const [image, setImage] = useState(null);
+  const selectImage = async () => {
+    let res = await IPicker.launchImageLibraryAsync({
+      mediaTypes: IPicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    console.log(res);
+
+    if (!res.canceled) {
+      setImage(res.assets[0].uri);
+    }
+  };
   return (
     <ScrollView style={styles.container}>
       {/* <View style={styles.imageContainer}> */}
@@ -21,10 +38,12 @@ export default function Profile() {
         resizeMode="cover"
         style={styles.imageContainer}
       >
-        <Image
-          source={require("../../assets/profileImage.png")}
-          style={styles.profileImage}
-        />
+        <Pressable   style={({ pressed }) => (!pressed ? null: styles.pressed)} onPress={selectImage}>
+          <Image
+            source={!image ? require('../../assets/ProfileDefault.jpg') : {uri: image}}
+            style={styles.profileImage}
+          />
+        </Pressable>
 
         <Text style={styles.name}>Leander van Aarde</Text>
 
@@ -45,9 +64,15 @@ export default function Profile() {
           buttonType={"secondary"}
           icon={"edit"}
         />
-        <Text style={styles.sectionHeader}>Delete Account</Text>
         <Buttn
-          label={"Update Details"}
+          label={"Sign out of your account"}
+          buttonType={"primaryOutline"}
+          icon={"logout"}
+        />
+
+        <Text style={styles.sectionHeader}>Danger Zone</Text>
+        <Buttn
+          label={"Delete your account"}
           buttonType={"danger"}
           icon={"person-remove"}
         />
