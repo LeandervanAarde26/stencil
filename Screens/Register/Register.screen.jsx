@@ -47,14 +47,6 @@ export default function Register({navigation}) {
         />
 
         <Input
-          label={"Contact Number"}
-          placeholder={"Enter your Phone number"}
-          keyboardType="phone-pad"
-          onChangeText={(text) => setValues({ ...values, contactNumber: text })}
-          value={contactNumber}
-        />
-
-        <Input
           label={"Password"}
           placeholder={"Pick a secure password"}
           keyboardType="default"
