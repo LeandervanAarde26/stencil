@@ -16,9 +16,12 @@ export const styles = StyleSheet.create({
     },
 
     innerContainer:{
-     flex: 0.8,
-     position: 'absolute',
-     top: 50,
+     flex: 0.7, 
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 30
+
+
     //  backgroundColor : 'red'
     }
 

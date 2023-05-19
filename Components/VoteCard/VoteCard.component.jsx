@@ -10,20 +10,93 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./VoteCard.styles";
+const width = Dimensions.get("window").width;
 
-export default function VoteCard({ uri }) {
+export default function VoteCard({ item, removeCard, swipedDirection }) {
   const [show, setShow] = useState(true);
+  //Card must be in the center first
+  const [positionX, setPositionX] = useState(new Animated.Value(0));
+  //Showcases in which direction the card must be swiped
+  let swipeDirection = "";
+  //Card must be visible initially before the swipe.
+  let cardOpacity = new Animated.Value(1);
+  // Card rotation values
+  let cardRotaion = positionX.interpolate({
+    inputRange: [-200, 0, 200],
+    outputRange: ["-20deg", "0deg", "20deg"],
+  });
+
+  // Movement responder aka PanResponder
+  let panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: () => false,
+    onMoveShouldSetPanResponder: () => true,
+    onStartShouldSetPanResponderCapture: () => false,
+    onMoveShouldSetPanResponderCapture: () => true,
+    onPanResponderMove: Animated.event([null, { dx: positionX }], {
+      useNativeDriver: false,
+      // Check which direction the gesture is being done
+      listener: (evt, gestureState) => {
+        if (gestureState.dx > width - 250) {
+          swipeDirection = "Right";
+        } else if (gestureState.dx < -width + 250) {
+          swipeDirection = "Left";
+        }
+      },
+    }),
+
+    onPanResponderRelease: (evt, gestureState) => {
+      const gestureReset =
+        gestureState.dx < width - 150 && gestureState.dx > -width + 150;
+      const toValue = gestureState.dx > width - 150 ? width : -width;
+
+      gestureReset
+        ? Animated.spring(positionX, {
+            toValue: 0,
+            speed: 5,
+            bounciness: 10,
+            useNativeDriver: false,
+          }).start()
+        : Animated.parallel([
+            Animated.timing(positionX, {
+              toValue,
+              duration: 200,
+              useNativeDriver: false,
+            }),
+            Animated.timing(cardOpacity, {
+              toValue: 0,
+              duration: 200,
+              useNativeDriver: false,
+            }),
+          ]).start(() => {
+            swipedDirection(swipeDirection);
+            removeCard();
+          });
+    },
+  });
 
   useEffect(() => {
     setTimeout(() => {
       setShow((prev) => !prev);
     }, 6000);
   }, []);
+
+  // setInterval(() => {
+  //   console.log(positionX)
+  // }, 2000);
   return (
-    <View style={styles.container}>
+    <Animated.View
+      style={[
+        styles.container,
+        {
+          opacity: cardOpacity,
+          transform: [{ translateX: positionX }, { rotate: cardRotaion }],
+        },
+      ]}
+      {...panResponder.panHandlers}
+    >
       <ImageBackground
         source={{
-          uri: uri,
+          uri: item.uri,
         }}
         style={styles.image}
         resizeMode="cover"
@@ -38,10 +111,15 @@ export default function VoteCard({ uri }) {
           ></Image>
         </View>
 
-      
-          {show && (
-            <>
-              <View style={styles.ribbon}>
+        {positionX < 110 && (
+          <View style={styles.noContainer}>
+            <Text style={styles.no}>No</Text>
+          </View>
+        )}
+
+        {show && (
+          <>
+            <View style={styles.ribbon}>
               <View style={styles.noContainer}>
                 <Text style={styles.no}>No</Text>
               </View>
@@ -49,11 +127,10 @@ export default function VoteCard({ uri }) {
               <View style={styles.yesContainer}>
                 <Text style={styles.yes}>Yes</Text>
               </View>
-              </View>
-            </>
-          )}
-      
+            </View>
+          </>
+        )}
       </ImageBackground>
-    </View>
+    </Animated.View>
   );
 }
