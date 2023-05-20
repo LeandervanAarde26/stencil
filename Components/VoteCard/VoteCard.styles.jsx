@@ -2,6 +2,11 @@ import { Dimensions, StyleSheet } from "react-native";
 import { Colors } from "../../Utils/Colors";
 
 export const styles = StyleSheet.create({
+
+  mainContainer:{
+      width: '100%',
+      height: '100%'
+  },
   container: {
     width: Dimensions.get("window").width - 40,
     height: "100%",
@@ -13,6 +18,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "red",
     position: "absolute",
   },
+
   image: {
     flex: 1,
     justifyContent: "space-between",

@@ -14,6 +14,8 @@ const width = Dimensions.get("window").width;
 
 export default function VoteCard({ item, removeCard, swipedDirection }) {
   const [show, setShow] = useState(true);
+  let side;
+  const [vote, setVote] = useState(null)
   //Card must be in the center first
   const [positionX, setPositionX] = useState(new Animated.Value(0));
   //Showcases in which direction the card must be swiped
@@ -41,7 +43,17 @@ export default function VoteCard({ item, removeCard, swipedDirection }) {
         } else if (gestureState.dx < -width + 250) {
           swipeDirection = "Left";
         }
+
+        if(gestureState.dx > 50){
+          side = gestureState.dx;
+        } else if(gestureState.dx < 50){
+          side = gestureState.dx;
+
+        }
       },
+ 
+
+
     }),
 
     onPanResponderRelease: (evt, gestureState) => {
@@ -80,9 +92,6 @@ export default function VoteCard({ item, removeCard, swipedDirection }) {
     }, 6000);
   }, []);
 
-  // setInterval(() => {
-  //   console.log(positionX)
-  // }, 2000);
   return (
     <Animated.View
       style={[
@@ -116,6 +125,22 @@ export default function VoteCard({ item, removeCard, swipedDirection }) {
             <Text style={styles.no}>No</Text>
           </View>
         )}
+
+            {
+              side > 50 
+              ?
+              <View style={styles.noContainer}>
+                <Text style={styles.no}>No</Text>
+              </View>
+              :
+              side > 50
+              ?
+              <View style={styles.yesContainer}>
+                <Text style={styles.yes}>Yes</Text>
+              </View>
+              :
+              null
+            }
 
         {show && (
           <>
