@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { styles } from "./Register.styles";
 import Buttn from "../../Components/Button/Button.component";
 import Input from "../../Components/Input/Input.component";
+import { registerUser } from "../../services/firebase.services";
 
 const defaultValues = {
   name: "",
@@ -17,7 +18,15 @@ export default function Register({navigation}) {
   const { name, email, contactNumber, password, confirmedPassword } = values;
 
   const handleClick = () => {
-    navigation.navigate('Home');
+      // if(!name || !email || !password|| !confirmedPassword ||  password !== password){
+      //   console.log('fill in all values')
+      // } else{
+      //   registerUser(name,email, password)
+      // }
+
+      navigation.navigate("Home")
+
+
   }
 
   const registerAccount = () =>{

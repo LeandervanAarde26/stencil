@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import { styles } from "./Login.styles";
 import Input from "../../Components/Input/Input.component";
 import Buttn from "../../Components/Button/Button.component";
+import { loginUser } from "../../services/firebase.services";
 
 const defaultValues = {
     email: "",
@@ -14,7 +15,11 @@ export default function Login({navigation}) {
     const [values, setValues] = useState(defaultValues);
     const {  email,  password } = values;
     const handleClick = () => {
-      navigation.navigate('Home');
+        if(password ==='' || email === ''){
+          console.log('Fill in all fields please')
+        } else{
+          loginUser(email, password)
+        }
     }
 
     const registerAccount = () =>{

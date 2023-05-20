@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 9,
     padding: 15,
-    gap: 15,
+    gap: 10,
     width: "100%",
   },
 

@@ -17,6 +17,7 @@ export default function Voting() {
       artistWebsite: "https://artist1website.com",
       artistNumber: "1234567890",
       artworkName: "Dragon Sleeve",
+      category: "Japanese",
     },
     {
       id: "2",
@@ -27,6 +28,7 @@ export default function Voting() {
       artistWebsite: "https://artist2website.com",
       artistNumber: "9876543210",
       artworkName: "Floral Watercolor",
+      category: "Watercolor",
     },
     {
       id: "3",
@@ -37,6 +39,7 @@ export default function Voting() {
       artistWebsite: "https://artist3website.com",
       artistNumber: "1112223333",
       artworkName: "Geometric Mandala",
+      category: "Neo-Traditional",
     },
     {
       id: "4",
@@ -47,6 +50,7 @@ export default function Voting() {
       artistWebsite: "https://artist4website.com",
       artistNumber: "4445556666",
       artworkName: "Japanese Koi Fish",
+      category: "Japanese",
     },
     {
       id: "5",
@@ -57,6 +61,7 @@ export default function Voting() {
       artistWebsite: "https://artist5website.com",
       artistNumber: "7778889999",
       artworkName: "Neo-Traditional Rose",
+      category: "Neo-Traditional",
     },
   ];
   const [cardsDone, setCardsDone] = useState(false);
@@ -102,7 +107,10 @@ export default function Voting() {
           gap: 40,
         }}
       >
-        <Text style={styles.heading}>Neo-Traditional</Text>
+        {index === data.length ? null : (
+          <Text style={styles.heading}>{data[index].category}</Text>
+        )}
+
         <Buttn
           label={"Leaderboard"}
           buttonType={"secondary"}
@@ -123,10 +131,8 @@ export default function Voting() {
         </View>
       ) : (
         <>
-
-<View style={styles.innerContainer}>
-          {data.map((item, index) => (
-
+          <View style={styles.innerContainer}>
+            {data.map((item, index) => (
               <VoteCard
                 key={index}
                 item={item}
@@ -134,10 +140,8 @@ export default function Voting() {
                 removeCard={() => changeIndex()}
                 swipedDirection={swipedDirection}
               />
-       
-          ))}
-        </View>
-
+            ))}
+          </View>
 
           <Text style={styles.artworkTitle}>{data[index].artworkName}</Text>
           <View style={styles.artContainer}>
