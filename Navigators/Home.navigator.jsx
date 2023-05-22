@@ -17,9 +17,6 @@ export default function Home() {
       initialRouteName="Competitions"
       screenOptions={{
         headerShown: false,
-        
-        
-        
         tabBarStyle: {
           borderColor: Colors.White,
           borderTopColor: Colors.White,

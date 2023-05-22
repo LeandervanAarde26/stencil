@@ -26,10 +26,11 @@ export default function Enter() {
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(res);
+
 
     if (!res.canceled) {
       setImage(res.assets[0].uri);
+      console.log(res);
     }
   };
 

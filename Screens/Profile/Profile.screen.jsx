@@ -23,10 +23,11 @@ export default function Profile() {
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
+      cancelled: false
     });
-    console.log(res);
 
     if (!res.canceled) {
+      console.log(res);
       setImage(res.assets[0].uri);
     }
   };

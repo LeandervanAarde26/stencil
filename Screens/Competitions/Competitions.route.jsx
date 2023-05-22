@@ -6,7 +6,7 @@ import CompetitionCard from "../../Components/CompetitionCard/CompetitionCard.co
 
 const competitions = [
   {
-    remainingTime: 1685551385,
+    remainingTime: 1684685158,
     description: "Join the ultimate tattoo showdown and let your art speak for itself!",
     competitionName: "Inked Masterpiece",
     category: "Realism Tattoos",
@@ -86,6 +86,18 @@ const competitions = [
     image: "URL to competition image 10"
   }
 ];
+
+const enterCompetition = () => {
+  console.log('Enter the competition!')
+}
+
+const judgeCompetition = () => {
+  console.log('judgecompetition')
+}
+
+const viewResults = () =>{
+
+}
 
 export default function Competitions() {
   return (

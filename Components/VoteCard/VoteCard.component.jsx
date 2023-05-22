@@ -51,9 +51,6 @@ export default function VoteCard({ item, removeCard, swipedDirection }) {
 
         }
       },
- 
-
-
     }),
 
     onPanResponderRelease: (evt, gestureState) => {
