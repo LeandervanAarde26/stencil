@@ -35,6 +35,27 @@ export const styles = StyleSheet.create({
     fontSize: 13,
   },
 
+  label: {
+    fontSize: 13,
+    color: Colors.White,
+    marginBottom: -10
+  },
+
+  pickerContainer:{
+    height: 50,
+    backgroundColor: "#3E454D",
+    overflow: 'scroll',
+    justifyContent: 'center',
+    borderRadius: 9,
+    borderWidth: 2, 
+    borderColor: 'black'
+
+    },
+
+    picker:{
+        color: Colors.White,
+    }, 
+
   buttonsContainer: {
     flex: 1,
     paddingHorizontal: 15,
