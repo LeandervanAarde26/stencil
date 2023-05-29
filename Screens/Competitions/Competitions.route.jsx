@@ -6,28 +6,28 @@ import CompetitionCard from "../../Components/CompetitionCard/CompetitionCard.co
 
 const competitions = [
   {
-    remainingTime: 1684685158,
+    remainingTime: 1685269144,
     description: "Join the ultimate tattoo showdown and let your art speak for itself!",
     competitionName: "Inked Masterpiece",
     category: "Realism Tattoos",
     contestants: 20,
-    image: "URL to competition image 1"
+    image: "https://www.pngfind.com/pngs/m/184-1848579_free-png-wolf-girl-tattoo-designs-png-image.png"
   },
   {
-    remainingTime: 1685551385,
+    remainingTime: 1685355544,
     description: "Unleash your creativity and imagination in this fantasy-themed tattoo competition.",
     competitionName: "Fantastical Ink Fest",
     category: "Fantasy Tattoos",
     contestants: 15,
-    image: "URL to competition image 2"
+    image: "https://www.pngfind.com/pngs/m/184-1848579_free-png-wolf-girl-tattoo-designs-png-image.png"
   },
   {
     remainingTime: 1685551385,
-    description: "Calling all ink enthusiasts! Showcase your expertise in this black and grey tattoo challenge.",
+    description: "Showcase your expertise in this black and grey tattoo challenge.",
     competitionName: "Shades of Gray",
     category: "Black and Grey Tattoos",
     contestants: 12,
-    image: "URL to competition image 3"
+    image: "https://png.pngtree.com/element_our/20190530/ourmid/pngtree-oldschool-tattoo-manuscript-rose-image_1262073.jpg"
   },
   {
     remainingTime: 1685551385,
@@ -35,7 +35,7 @@ const competitions = [
     competitionName: "Color Explosion",
     category: "Neo-Traditional Tattoos",
     contestants: 18,
-    image: "URL to competition image 4"
+    image: "https://png.pngtree.com/element_our/sm/20180515/sm_930d88ac10fafcb133c4b2027446648b.png"
   },
   {
     remainingTime: 1685551385,
@@ -43,7 +43,7 @@ const competitions = [
     competitionName: "Irezumi Artistry",
     category: "Japanese Tattoos",
     contestants: 10,
-    image: "URL to competition image 5"
+    image: "https://png.pngtree.com/png-vector/20190925/ourmid/pngtree-japan-koi-fish-illustration-vector-in-tattoo-style-png-image_1733191.jpg"
   },
   {
     remainingTime: 1685551385,
@@ -51,7 +51,7 @@ const competitions = [
     competitionName: "Dark Inked Tales",
     category: "Horror Tattoos",
     contestants: 8,
-    image: "URL to competition image 6"
+    image: "https://png.pngtree.com/element_our/sm/20180515/sm_3ad87454c6cabee2420d5a610b7b644a.png"
   },
   {
     remainingTime: 1685292185,
@@ -59,7 +59,7 @@ const competitions = [
     competitionName: "Floral Masterstrokes",
     category: "Botanical Tattoos",
     contestants: 15,
-    image: "URL to competition image 7"
+    image: "https://www.pngfind.com/pngs/m/184-1848579_free-png-wolf-girl-tattoo-designs-png-image.png"
   },
   {
     remainingTime: 1685205785,
@@ -67,7 +67,7 @@ const competitions = [
     competitionName: "Less is More",
     category: "Minimalist Tattoos",
     contestants: 10,
-    image: "URL to competition image 8"
+    image: "https://www.pngfind.com/pngs/m/184-1848579_free-png-wolf-girl-tattoo-designs-png-image.png"
   },
   {
     remainingTime: 1685205785,
@@ -75,7 +75,7 @@ const competitions = [
     competitionName: "Tribal Fusion",
     category: "Tribal Tattoos",
     contestants: 12,
-    image: "URL to competition image 9"
+    image: "https://png.pngtree.com/png-clipart/20190217/ourmid/pngtree-tribal-lizard-iguana-temporary-tattoo-png-image_3997150.png"
   },
   {
     remainingTime: 1685205785,
@@ -83,23 +83,26 @@ const competitions = [
     competitionName: "Watercolor Waves",
     category: "Watercolor Tattoos",
     contestants: 15,
-    image: "URL to competition image 10"
+    image: "https://png.pngtree.com/png-vector/20190919/ourmid/pngtree-anchor-tattoo-illustration-png-image_1742457.jpg"
   }
 ];
 
-const enterCompetition = () => {
-  console.log('Enter the competition!')
-}
+export default function Competitions({navigation}) {
 
-const judgeCompetition = () => {
-  console.log('judgecompetition')
-}
+  const enterCompetition = (category) => {
+    navigation.navigate("Enter", {category : category})
+  }
+  
+  const judgeCompetition = () => {
+    console.log('judgecompetition')
+  }
+  
+  const viewResults = () =>{
+  
+  }
 
-const viewResults = () =>{
 
-}
 
-export default function Competitions() {
   return (
       <View style={styles.container}>
           <ScrollView 
@@ -110,6 +113,7 @@ export default function Competitions() {
               <CompetitionCard
                 {...i}
                 key={index}
+                navigation={() => enterCompetition(i.category)}
               />
             ))}
           </ScrollView>

@@ -13,10 +13,10 @@ export default function CompetitionCard({
   category,
   contestants,
   image,
+  navigation
 }) {
   const width = Dimensions.get("window").width;
   const unixTimestamp = remainingTime;
-  const millisecondsPerDay = 24 * 60 * 60 * 1000;
 
   const [countdown, setCountdown] = useState({
     days: 0,
@@ -25,23 +25,40 @@ export default function CompetitionCard({
     seconds: 0,
   });
 
+  const {days, hours, minutes, seconds} = countdown
+
   useEffect(() => {
     const calculateTimeDifference = () => {
       let currentDate = new Date();
       let timestampDate = new Date(unixTimestamp * 1000);
-      let timeDifference = Math.abs(currentDate - timestampDate);
-      let days = Math.floor(timeDifference / millisecondsPerDay);
-      let hours = Math.floor((timeDifference / (60 * 60 * 1000)) % 24);
-      let minutes = Math.floor((timeDifference / (60 * 1000)) % 60);
-      let seconds = Math.floor((timeDifference / 1000) % 60);
+      let timeDifference = Math.floor((timestampDate - currentDate) / 1000);
+
+      let days = Math.floor(timeDifference / (24 * 60 * 60));
+      let hours = Math.floor((timeDifference / (60 * 60)) % 24);
+      let minutes = Math.floor((timeDifference / 60) % 60);
+      let seconds = Math.floor(timeDifference % 60);
+      days < 0 ? (days = 0) : days < 10 ? (days = "0" + days) : days;
+      hours < 0 ? (hours = 0) : hours < 10 ? (hours = "0" + hours) : hours;
+      minutes < 0
+        ? (minutes = 0)
+        : minutes < 10
+        ? (minutes = "0" + minutes)
+        : minutes;
+      seconds < 0
+        ? (seconds = 0)
+        : seconds < 10
+        ? (seconds = "0" + seconds)
+        : seconds;
       setCountdown({
-        days: days < 10 ? "0" + days : days,
-        hours: hours < 10 ? "0" + hours : hours,
-        minutes: minutes < 10 ? "0" + minutes : minutes,
-        seconds: seconds < 10 ? "0" + seconds : seconds,
+        days,
+        hours,
+        minutes,
+        seconds,
       });
     };
+
     const timer = setInterval(calculateTimeDifference, 1000);
+    calculateTimeDifference(); // Initial calculation to set the countdown immediately
 
     return () => clearInterval(timer);
   }, []);
@@ -49,10 +66,7 @@ export default function CompetitionCard({
   return (
     <View style={[styles.container, { width: width - 20 }]}>
       <Text style={styles.title}>{competitionName}</Text>
-      <Image
-        source={require("../../assets/testerImage.png")}
-        style={styles.image}
-      />
+      <Image source={{ uri: image }} style={styles.image} />
       <View style={styles.innerContainer}>
         <Timer countDown={countdown} />
         <View style={styles.contestantsContainer}>
@@ -74,11 +88,18 @@ export default function CompetitionCard({
           <Text style={styles.contestants}>{contestants}/100 Contestants</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Buttn
+          {
+            days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0
+            ?
+            null
+            :
+            <Buttn
             buttonType={"primary"}
             label={"Enter"}
+            onPressHandler={navigation}
             icon={"add-circle-outline"}
           />
+          }
           <Buttn buttonType={"secondary"} label={"Judge"} icon={"gavel"} />
         </View>
       </View>

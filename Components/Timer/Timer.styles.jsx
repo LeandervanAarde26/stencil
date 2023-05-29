@@ -44,6 +44,14 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
 
+  timerDone: {
+    color: Colors.Danger,
+    fontSize: 40,
+    fontWeight: "bold",
+    width: "19%",
+    textAlign: "center",
+  },
+
   dot: {
     color: Colors.White,
     fontSize: 40,

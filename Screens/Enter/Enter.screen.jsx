@@ -1,5 +1,5 @@
 import { Platform, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { styles } from "./Enter.styles";
 import ImagePicker from "../../Components/ImagePicker/ImagePicker.component";
 import Input from "../../Components/Input/Input.component";
@@ -7,6 +7,7 @@ import { Picker } from "@react-native-picker/picker";
 import Buttn from "../../Components/Button/Button.component";
 import { Colors } from "../../Utils/Colors";
 import * as IPicker from "expo-image-picker";
+import { useFocusEffect } from "@react-navigation/native";
 
 const requiredFields = {
   name: "",
@@ -14,9 +15,15 @@ const requiredFields = {
   competition: "none",
 };
 
-export default function Enter() {
+export default function Enter({route, navigation}) {
   const [values, setValues] = useState(requiredFields);
   const { name, description, competition } = values;
+  const category = route.params;
+
+  console.log(category)
+
+ 
+
 
   const [image, setImage] = useState(null);
   const selectImage = async () => {
@@ -37,7 +44,7 @@ export default function Enter() {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.heading}>Your Entry</Text>
+        <Text style={styles.heading}>Your Entry {category == null ? "" :  `into ${category.category}`}</Text>
         <ImagePicker image={image} selectImage={selectImage} />
       </View>
       <View style={styles.container2}>
@@ -62,11 +69,15 @@ export default function Enter() {
         />
 
         <Text style={styles.label}> Add Competition</Text>
-        <View
-          style={styles.pickerContainer}
-          itemStyle={{ color: Colors.primary, backgroundColor: Colors.primary }}
-        >
-          <Picker
+
+          {
+            category == null
+            ?
+            <View
+            style={styles.pickerContainer}
+            itemStyle={{ color: Colors.primary, backgroundColor: Colors.primary }}
+          >
+            <Picker
             style={styles.picker}
             selectedValue={competition}
             onValueChange={(item) =>
@@ -86,7 +97,11 @@ export default function Enter() {
               value="not Traditional"
             />
           </Picker>
-        </View>
+          </View>
+          :
+          null
+          }
+
 
         <View style={styles.buttonContainer}>
           <Buttn

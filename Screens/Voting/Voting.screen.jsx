@@ -10,7 +10,7 @@ export default function Voting() {
   const tattooEntries = [
     {
       id: "1",
-      uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Lidush_Habib_01.jpg/120px-Lidush_Habib_01.jpg",
+      uri: "https://www.pngfind.com/pngs/m/184-1848579_free-png-wolf-girl-tattoo-designs-png-image.png",
       artist: "John Smith",
       artistImage: "https://example.com/artist1.jpg",
       artistInstagram: "https://instagram.com/artist1",
@@ -21,7 +21,7 @@ export default function Voting() {
     },
     {
       id: "2",
-      uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Trip_to_edinburg_and_picture_with_tan_sri_noor_hisham.jpg/90px-Trip_to_edinburg_and_picture_with_tan_sri_noor_hisham.jpg",
+      uri: "https://www.pngfind.com/pngs/m/184-1848579_free-png-wolf-girl-tattoo-designs-png-image.png",
       artist: "Emily Johnson",
       artistImage: "https://example.com/artist2.jpg",
       artistInstagram: "https://instagram.com/artist2",
@@ -32,7 +32,7 @@ export default function Voting() {
     },
     {
       id: "3",
-      uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/%D8%AC%D8%A7%D8%B3%D9%85_%D9%85%D8%AD%D9%85%D8%AF_%D8%AC%D8%B9%D9%81%D8%B1.jpg/120px-%D8%AC%D8%A7%D8%B3%D9%85_%D9%85%D8%AD%D9%85%D8%AF_%D8%AC%D8%B9%D9%81%D8%B1.jpg",
+      uri: "https://png.pngtree.com/element_our/sm/20180515/sm_930d88ac10fafcb133c4b2027446648b.png",
       artist: "David Thompson",
       artistImage: "https://example.com/artist3.jpg",
       artistInstagram: "https://instagram.com/artist3",
@@ -43,7 +43,7 @@ export default function Voting() {
     },
     {
       id: "4",
-      uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D8%A3%D9%85%D9%8A%D8%B1_%D8%A7%D9%84%D8%B4%D9%85%D8%B1%D9%8A.jpg/90px-%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D8%A3%D9%85%D9%8A%D8%B1_%D8%A7%D9%84%D8%B4%D9%85%D8%B1%D9%8A.jpg",
+      uri: "https://www.pngfind.com/pngs/m/184-1848579_free-png-wolf-girl-tattoo-designs-png-image.png",
       artist: "Sarah Davis",
       artistImage: "https://example.com/artist4.jpg",
       artistInstagram: "https://instagram.com/artist4",
@@ -54,7 +54,7 @@ export default function Voting() {
     },
     {
       id: "5",
-      uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3_%D8%A8%D9%8A%D8%B1%D8%AF%D8%A7%D8%AF_%D9%85%D8%AD%D9%85%D8%AF.jpg/120px-%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3_%D8%A8%D9%8A%D8%B1%D8%AF%D8%A7%D8%AF_%D9%85%D8%AD%D9%85%D8%AF.jpg",
+      uri: "https://png.pngtree.com/png-clipart/20190217/ourmid/pngtree-tribal-lizard-iguana-temporary-tattoo-png-image_3997150.png",
       artist: "Michael Brown",
       artistImage: "https://example.com/artist5.jpg",
       artistInstagram: "https://instagram.com/artist5",

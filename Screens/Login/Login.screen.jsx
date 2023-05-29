@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { styles } from "./Login.styles";
 import Input from "../../Components/Input/Input.component";
 import Buttn from "../../Components/Button/Button.component";
-import { loginUser } from "../../services/firebase.services";
+import { loginUser, resetPassword } from "../../services/firebase.services";
 import SModal from "../../Components/Modal/Modal.component";
 
 const defaultValues = {
@@ -16,14 +16,51 @@ export default function Login({ navigation }) {
   const { email, password } = values;
   const [modalVisible, setModalVisible] = useState(false);
   const [emailErr, setEmailErr] = useState();
+  const [accountFailure, setAccountFailure] = useState(false);
 
   const ToggleModal = () => {
     setModalVisible((prev) => !prev);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!email || !password) {
       ToggleModal();
+    } else {
+      const success = await loginUser(email, password);
+      switch (success) {
+        case true:
+          navigation.navigate("Home");
+          break;
+        case "Firebase: Error (auth/wrong-password).":
+          Alert.alert(
+            "Password incorrect",
+            "Please ensure password is correct"
+          );
+          break;
+        case "Firebase: Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. (auth/too-many-requests).":
+          Alert.alert(
+            "Account locked",
+            "Password entered wrong too many times, reset it now",
+            [
+              {
+                text: "Send reset email",
+                onPress: () => resetPassword(email),
+              },
+            ]
+          );
+          break;
+        default:
+          Alert.alert(
+            "Account not found",
+            "Account not found, ensure all fields are correct",
+            [
+              {
+                text: "try again",
+              },
+            ]
+          );
+          break;
+      }
     }
   };
 
@@ -47,6 +84,14 @@ export default function Login({ navigation }) {
           value={modalVisible}
           toggleModal={ToggleModal}
           text={"Please fill in all fields!"}
+        />
+      )}
+
+      {accountFailure && (
+        <SModal
+          value={modalVisible}
+          toggleModal={accountFailure}
+          text={"No account found with email"}
         />
       )}
       <Image style={styles.image} source={require("../../assets/Logo.png")} />

@@ -14,14 +14,13 @@ export default function Timer({ countDown }) {
       </View>
 
       <View style={styles.time}>
-      <Text style={styles.timer}>{countDown.days} </Text>
+      <Text style={countDown.days > 0 ? styles.timer : styles.timerDone}>{countDown.days} </Text>
       <Text style={styles.dot}>: </Text>
-      <Text style={styles.timer}>{countDown.hours} </Text>
+      <Text style={countDown.hours > 0 ? styles.timer : styles.timerDone}>{countDown.hours} </Text>
       <Text style={styles.dot}>: </Text>
-      <Text style={styles.timer}>{countDown.minutes} </Text>
-
+      <Text style={countDown.minutes > 0 && countDown.hours  ? styles.timer : styles.timerDone}>{countDown.minutes} </Text>
       <Text style={styles.dot}>: </Text>
-      <Text style={styles.timer}>{countDown.seconds}</Text>
+      <Text style={countDown.seconds > 0 ? styles.timer : styles.timerDone}>{countDown.seconds}</Text>
       </View>      
     </View>
   );
