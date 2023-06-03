@@ -1,10 +1,11 @@
 import { Text, View } from 'react-native'
 import React from 'react'
+import { styles } from './Categories.styles'
 
 export default function Categories() {
   return (
-    <View>
-      <Text>Categories.screen</Text>
+    <View style={styles.container}>
+      <Text style={styles.heading}>Categories.screen</Text>
     </View>
   )
 }

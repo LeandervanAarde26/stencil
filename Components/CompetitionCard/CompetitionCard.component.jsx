@@ -1,10 +1,11 @@
-import { Text, View, Image, Dimensions } from "react-native";
+import { Text, View, Image, Dimensions, Animated } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./CompetitionCard.styles";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Buttn from "../Button/Button.component";
 import Timer from "../Timer/Timer.component";
 import { Colors } from "../../Utils/Colors";
+import { TextStyles } from "../../Utils/Text";
 
 export default function CompetitionCard({
   remainingTime,
@@ -24,8 +25,14 @@ export default function CompetitionCard({
     minutes: 0,
     seconds: 0,
   });
+  const [ loadEnd, setLoadEnd] = useState(false)
 
   const {days, hours, minutes, seconds} = countdown
+
+  const onLoadEnd = () => {
+    setLoadEnd(prev => !prev);
+  }
+  
 
   useEffect(() => {
     const calculateTimeDifference = () => {
@@ -65,8 +72,8 @@ export default function CompetitionCard({
 
   return (
     <View style={[styles.container, { width: width - 20 }]}>
-      <Text style={styles.title}>{competitionName}</Text>
-      <Image source={{ uri: image }} style={styles.image} />
+      <Text style={TextStyles.headingOne}>{competitionName}</Text>
+      <Image source={{ uri: image }} style={styles.image} onLoadEnd={onLoadEnd} />
       <View style={styles.innerContainer}>
         <Timer countDown={countdown} />
         <View style={styles.contestantsContainer}>
@@ -75,17 +82,17 @@ export default function CompetitionCard({
             size={20}
             color={Colors.secondary}
           />
-          <Text style={styles.contestants}>Description</Text>
+          <Text style={TextStyles.smallText}>Description</Text>
         </View>
 
-        <Text style={styles.description}>{description}</Text>
+        <Text style={TextStyles.body}>{description}</Text>
         <View style={styles.contestantsContainer}>
           <MaterialIcons
             name={"person-outline"}
             size={25}
             color={Colors.secondary}
           />
-          <Text style={styles.contestants}>{contestants}/100 Contestants</Text>
+          <Text style={TextStyles.smallText}>{contestants}/100 Contestants</Text>
         </View>
         <View style={styles.buttonContainer}>
           {

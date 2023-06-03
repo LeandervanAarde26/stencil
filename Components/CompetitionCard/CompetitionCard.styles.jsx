@@ -30,17 +30,11 @@ export const styles = StyleSheet.create({
     gap: 15,
   },
 
-  title: {
-    color: Colors.White,
-    fontWeight: "bold",
-    fontSize: 28,
-    textAlign: "center",
-  },
-
   image: {
-    width: "55%",
+    width: "100%",
     height: "40%",
     justifyContent: "center",
+    resizeMode: 'contain'
   },
   description: {
     color: Colors.White,

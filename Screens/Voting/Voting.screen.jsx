@@ -1,11 +1,13 @@
 import { Image, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styles } from "./Voting.styles";
 import Buttn from "../../Components/Button/Button.component";
 import VoteCard from "../../Components/VoteCard/VoteCard.component";
 import Swiper from "react-native-deck-swiper";
 import { Colors } from "../../Utils/Colors";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { TextStyles } from "../../Utils/Text";
+import { addProjectsToDataBase } from "../../services/firebase.services";
 export default function Voting() {
   const tattooEntries = [
     {
@@ -18,6 +20,7 @@ export default function Voting() {
       artistNumber: "1234567890",
       artworkName: "Dragon Sleeve",
       category: "Japanese",
+      votes: 24,
     },
     {
       id: "2",
@@ -29,6 +32,7 @@ export default function Voting() {
       artistNumber: "9876543210",
       artworkName: "Floral Watercolor",
       category: "Watercolor",
+      votes: 12,
     },
     {
       id: "3",
@@ -40,6 +44,7 @@ export default function Voting() {
       artistNumber: "1112223333",
       artworkName: "Geometric Mandala",
       category: "Neo-Traditional",
+      votes: 0,
     },
     {
       id: "4",
@@ -51,6 +56,7 @@ export default function Voting() {
       artistNumber: "4445556666",
       artworkName: "Japanese Koi Fish",
       category: "Japanese",
+      votes: 0,
     },
     {
       id: "5",
@@ -62,11 +68,13 @@ export default function Voting() {
       artistNumber: "7778889999",
       artworkName: "Neo-Traditional Rose",
       category: "Neo-Traditional",
+      votes: 37,
     },
   ];
   const [cardsDone, setCardsDone] = useState(false);
   const [data, setData] = useState(tattooEntries);
-  const [direction, setDirection] = useState(null);
+  const [direction, setDirection] = useState();
+  const [votes, setVotes] = useState(null)
 
   const removeCard = (id) => {
     // data.splice(
@@ -87,28 +95,43 @@ export default function Voting() {
       setCardsDone(true);
     } else {
       setIndex(index + 1);
-      console.log(index);
     }
   };
 
-  const swipedDirection = (swipeDirection) => {
+  const swipedDirection = (swipeDirection, votes) => {
     setDirection(swipeDirection);
-    console.log(swipeDirection);
+    // setVotes(votes +1)
+    console.log("Hey", votes)
+    console.log(swipeDirection)
+    // if(swipeDirection === "Left"){
+    //   console.log(votes)
+    // }
+
+    if(swipeDirection == "Left"){
+      setVotes(votes -1)
+      console.log(swipeDirection)
+    } else if(swipeDirection == "Right"){
+      setVotes(votes +1)
+      console.log(votes)
+    }
+
+  
   };
+
 
   return (
     <View style={styles.container}>
       <View
         style={{
           height: 70,
-          paddingHorizontal: 30,
+          paddingHorizontal: 27,
           flexDirection: "row",
           alignItems: "center",
           gap: 40,
         }}
       >
         {index === data.length ? null : (
-          <Text style={styles.heading}>{data[index].category}</Text>
+          <Text style={[TextStyles.headingTwo]}>{data[index].category}</Text>
         )}
 
         <Buttn
@@ -138,12 +161,12 @@ export default function Voting() {
                 item={item}
                 index={index}
                 removeCard={() => changeIndex()}
-                swipedDirection={swipedDirection}
+                swipedDirection={(direction) => swipedDirection(direction,item.votes)}
               />
             ))}
           </View>
 
-          <Text style={styles.artworkTitle}>{data[index].artworkName}</Text>
+          <Text style={[TextStyles.headingThree, {paddingLeft: 20, paddingTop: 20}]}>{data[index].artworkName}</Text>
           <View style={styles.artContainer}>
             <View style={styles.artistInfo}>
               <MaterialIcons
@@ -151,7 +174,7 @@ export default function Voting() {
                 size={15}
                 color={Colors.secondary}
               />
-              <Text style={styles.artistInformation}>{data[index].artist}</Text>
+              <Text style={TextStyles.body}>{data[index].artist}</Text>
             </View>
 
             <View style={styles.artistInfo}>
@@ -160,7 +183,7 @@ export default function Voting() {
                 size={15}
                 color={Colors.secondary}
               />
-              <Text style={styles.artistInformation}>
+              <Text style={TextStyles.body}>
                 {data[index].artistWebsite}
               </Text>
             </View>
@@ -171,7 +194,7 @@ export default function Voting() {
                 size={15}
                 color={Colors.secondary}
               />
-              <Text style={styles.artistInformation}>
+              <Text style={TextStyles.body}>
                 {data[index].artistInstagram}
               </Text>
             </View>
@@ -182,7 +205,7 @@ export default function Voting() {
                 size={15}
                 color={Colors.secondary}
               />
-              <Text style={styles.artistInformation}>
+              <Text style={TextStyles.body}>
                 {data[index].artistNumber}
               </Text>
             </View>

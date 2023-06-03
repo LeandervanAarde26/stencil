@@ -51,7 +51,6 @@ export const styles = StyleSheet.create({
         color: Colors.White,
         fontSize: 17,
         fontWeight: 700,
-
       },
 
       modalImage: {

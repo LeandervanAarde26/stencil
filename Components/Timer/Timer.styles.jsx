@@ -7,19 +7,15 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
 
-  heading: {
-    fontSize: 22,
-    color: Colors.White,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 20,
+  center:{
+    textAlign: 'center'
   },
 
   timeContainer: {
     width: "100%",
     flexDirection: "row",
     // backgroundColor: 'blue',
-    paddingVertical: 5,
+    paddingVertical: 0,
   },
 
   indicator: {
@@ -38,7 +34,7 @@ export const styles = StyleSheet.create({
 
   timer: {
     color: Colors.White,
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: "bold",
     width: "19%",
     textAlign: "center",
@@ -46,7 +42,7 @@ export const styles = StyleSheet.create({
 
   timerDone: {
     color: Colors.Danger,
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: "bold",
     width: "19%",
     textAlign: "center",
@@ -54,7 +50,7 @@ export const styles = StyleSheet.create({
 
   dot: {
     color: Colors.White,
-    fontSize: 40,
+    fontSize: 35,
     fontWeight: "bold",
 
     textAlign: "center",

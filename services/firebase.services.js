@@ -5,7 +5,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { Auth } from "../Utils/Firebase";
-import { createNewUser } from "./firestore.db";
+import { addAllProjs, createNewUser } from "./firestore.db";
 
 export const registerUser = async (username, email, password, role) => {
   try {
@@ -15,7 +15,7 @@ export const registerUser = async (username, email, password, role) => {
       password
     );
     const user = userCredential.user;
-    await updateAuthProfile(username);
+    await updateAuthProfile(username, 'https://firebasestorage.googleapis.com/v0/b/stencildb-ddd4f.appspot.com/o/Defaults%2FprofileImage.jpg?alt=media&token=7c2fadae-e0b7-484b-a32f-3be7ee9c65a8&_gl=1*k39ilv*_ga*MTg3MzQ4NjU1LjE2ODI4NDIwMTg.*_ga_CW55HF8NVT*MTY4NTc0OTE3MC40NC4xLjE2ODU3NDkzOTQuMC4wLjA.');
     await createNewUser(username, email, role, user.uid);
     return true;
   } catch (error) {
@@ -45,11 +45,11 @@ export const loginUser = async (email, password) => {
   }
 };
 
-const updateAuthProfile = async (username) => {
+export const updateAuthProfile = async (username, photoURL) => {
   return new Promise((resolve, reject) => {
     updateProfile(Auth.currentUser, {
       displayName: username,
-      photoURL: "https://example.com/jane-q-user/profile.jpg",
+      photoURL: photoURL,
     })
       .then(() => {
         resolve();
@@ -71,3 +71,11 @@ export const resetPassword = async (email) => {
     return errMsg;
   }
 };
+
+
+
+export const getCurrUser = () => {
+  return Auth.currentUser;
+};
+
+

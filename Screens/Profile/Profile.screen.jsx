@@ -3,20 +3,23 @@ import {
   View,
   ImageBackground,
   Image,
-  Butto,
-  n,
   ScrollView,
   Pressable,
 } from "react-native";
-import React,{useState} from "react";
+import React,{useCallback, useContext, useEffect, useLayoutEffect, useState} from "react";
 import { styles } from "./Profile.styles";
 import Input from "../../Components/Input/Input.component";
 import Buttn from "../../Components/Button/Button.component";
 import * as IPicker from "expo-image-picker";
+import { getCurrUser } from "../../services/firebase.services";
+import { getUserInformation, updateUserProfilePhoto } from "../../services/firestore.db";
+import { useFocusEffect } from "@react-navigation/native";
+import { FirebaseContext } from "../../store/FirebaseUser.context";
 
 export default function Profile() {
-
+  
   const [image, setImage] = useState(null);
+  const fireBaseUserInformation = useContext(FirebaseContext);
   const selectImage = async () => {
     let res = await IPicker.launchImageLibraryAsync({
       mediaTypes: IPicker.MediaTypeOptions.Images,
@@ -31,6 +34,7 @@ export default function Profile() {
       setImage(res.assets[0].uri);
     }
   };
+
   return (
     <ScrollView style={styles.container}>
       {/* <View style={styles.imageContainer}> */}
@@ -41,34 +45,35 @@ export default function Profile() {
       >
         <Pressable   style={({ pressed }) => (!pressed ? null: styles.pressed)} onPress={selectImage}>
           <Image
-            source={!image ? require('../../assets/ProfileDefault.jpg') : {uri: image}}
+            source={!image ? {uri: fireBaseUserInformation ? fireBaseUserInformation.profileImage : null} : {uri: image}}
             style={styles.profileImage}
           />
         </Pressable>
+        <Text style={styles.name}>{fireBaseUserInformation ? fireBaseUserInformation.username : 'Loading...'}</Text>
 
-        <Text style={styles.name}>Leander van Aarde</Text>
-
-        <Text style={styles.role}>Tattoo enthusiast</Text>
+        <Text style={styles.role}>{fireBaseUserInformation ? fireBaseUserInformation.role : 'Loading...'}</Text>
       </ImageBackground>
       <View style={styles.bottomContainer}>
         <Text style={styles.sectionHeader}>Your Information</Text>
-        <Input label={"Name"} placeholder={"Enter your Email"} />
+        <Input label={"Name"} placeholder={"Enter your Emails"} checkInput={() => {return null}} />
 
-        <Input label={"Website"} placeholder={"Enter your Email"} />
+        <Input label={"Website"} placeholder={"Enter your Email"}  checkInput={() => {return null}}/>
 
-        <Input label={"Instagram"} placeholder={"Enter your Email"} />
+        <Input label={"Instagram"} placeholder={"Enter your hjg"} checkInput={() => {return null}} />
 
-        <Input label={"Contact Details"} placeholder={"Enter your Email"} />
+        <Input label={"Contact Details"} placeholder={"Enter your Email"} checkInput={() => {return null}} />
 
         <Buttn
           label={"Update Details"}
           buttonType={"secondary"}
           icon={"edit"}
+          onPressHandler={() => console.log('press')}
         />
         <Buttn
           label={"Sign out of your account"}
           buttonType={"primaryOutline"}
           icon={"logout"}
+          onPressHandler={() => console.log('press')}
         />
 
         <Text style={styles.sectionHeader}>Danger Zone</Text>
@@ -76,6 +81,7 @@ export default function Profile() {
           label={"Delete your account"}
           buttonType={"danger"}
           icon={"person-remove"}
+          onPressHandler={() => console.log('presss')}
         />
       </View>
     </ScrollView>

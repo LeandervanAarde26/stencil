@@ -13,4 +13,14 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 20,
   },
+
+  containerAlt:{
+    flex: 1,
+    paddingTop: 20,
+    // paddingRight: 10,
+    gap: 15,
+    backgroundColor: Colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });

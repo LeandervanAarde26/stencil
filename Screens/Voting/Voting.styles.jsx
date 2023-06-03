@@ -44,14 +44,10 @@ export const styles = StyleSheet.create({
   },
   artistInfo:{
     flexDirection: 'row',
-    // alignItems: 'center',
+    alignItems: 'center',
     paddingLeft: 25,
     gap: 15,
     width: '40%',
-  },
-  artistInformation:{
-    color: Colors.White,
-    fontSize: 13
   },
 
   artContainer:{
