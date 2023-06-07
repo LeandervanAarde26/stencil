@@ -90,7 +90,8 @@ export default function VoteCard({ item, removeCard, swipedDirection }) {
   }, []);
 
   return (
-    <Animated.View
+    <>
+        <Animated.View
       style={[
         styles.container,
         {
@@ -102,7 +103,7 @@ export default function VoteCard({ item, removeCard, swipedDirection }) {
     >
       <ImageBackground
         source={{
-          uri: item.uri,
+          uri: item.image,
         }}
         style={styles.image}
         resizeMode="cover"
@@ -110,7 +111,7 @@ export default function VoteCard({ item, removeCard, swipedDirection }) {
         <View style={styles.imageContainer}>
           <Image
             source={{
-              uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Sou2je-12rojsfvl.jpg/114px-Sou2je-12rojsfvl.jpg",
+              uri: item.profileImage,
             }}
             style={styles.image}
             resizeMode="cover"
@@ -153,6 +154,8 @@ export default function VoteCard({ item, removeCard, swipedDirection }) {
           </>
         )}
       </ImageBackground>
+      
     </Animated.View>
+    </>
   );
 }

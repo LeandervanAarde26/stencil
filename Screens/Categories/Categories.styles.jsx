@@ -5,8 +5,13 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 20,
-        paddingRight: 60,
         gap: 15,
-        backgroundColor: Colors.primary
+        backgroundColor: Colors.primary,
       },
+      cardContainer: {
+        width: '47%',
+        height: '30%',
+        backgroundColor: 'black',
+     
+      }
 })

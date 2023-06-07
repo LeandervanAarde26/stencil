@@ -31,7 +31,7 @@ export const TextStyles = StyleSheet.create({
     },
 
     headingFive:{
-        fontSize: 22,
+        fontSize: 18,
         color: Colors.White,
         fontWeight: "bold",
         // textAlign: "center",

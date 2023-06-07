@@ -11,12 +11,12 @@ import { styles } from "./Profile.styles";
 import Input from "../../Components/Input/Input.component";
 import Buttn from "../../Components/Button/Button.component";
 import * as IPicker from "expo-image-picker";
-import { getCurrUser } from "../../services/firebase.services";
+import { getCurrUser, signOut } from "../../services/firebase.services";
 import { getUserInformation, updateUserProfilePhoto } from "../../services/firestore.db";
 import { useFocusEffect } from "@react-navigation/native";
 import { FirebaseContext } from "../../store/FirebaseUser.context";
 
-export default function Profile() {
+export default function Profile({navigation}) {
   
   const [image, setImage] = useState(null);
   const fireBaseUserInformation = useContext(FirebaseContext);
@@ -34,6 +34,12 @@ export default function Profile() {
       setImage(res.assets[0].uri);
     }
   };
+
+  const LogOff = () => {
+    signOut();
+
+    navigation.navigate("Login")
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -55,13 +61,13 @@ export default function Profile() {
       </ImageBackground>
       <View style={styles.bottomContainer}>
         <Text style={styles.sectionHeader}>Your Information</Text>
-        <Input label={"Name"} placeholder={"Enter your Emails"} checkInput={() => {return null}} />
+        <Input label={"Name"} placeholder={fireBaseUserInformation ? fireBaseUserInformation.username: 'Enter name'} checkInput={() => {return null}} />
 
         <Input label={"Website"} placeholder={"Enter your Email"}  checkInput={() => {return null}}/>
 
         <Input label={"Instagram"} placeholder={"Enter your hjg"} checkInput={() => {return null}} />
 
-        <Input label={"Contact Details"} placeholder={"Enter your Email"} checkInput={() => {return null}} />
+        <Input label={"Contact Details"} placeholder={"Enter your Phone number"} checkInput={() => {return null}} />
 
         <Buttn
           label={"Update Details"}
@@ -73,7 +79,7 @@ export default function Profile() {
           label={"Sign out of your account"}
           buttonType={"primaryOutline"}
           icon={"logout"}
-          onPressHandler={() => console.log('press')}
+          onPressHandler={LogOff}
         />
 
         <Text style={styles.sectionHeader}>Danger Zone</Text>

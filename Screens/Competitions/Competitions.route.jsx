@@ -6,7 +6,7 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { styles } from "./Competitions.styles";
 import Buttn from "../../Components/Button/Button.component";
 import CompetitionCard from "../../Components/CompetitionCard/CompetitionCard.component";
@@ -15,7 +15,9 @@ import { useFocusEffect } from "@react-navigation/native";
 import { getAllCompetitions } from "../../services/firestore.db";
 import { Colors } from "../../Utils/Colors";
 import { TextStyles } from "../../Utils/Text";
-export default function Competitions({ navigation, data }) {
+import { FireBaseCompetitionContext } from "../../store/FireBaseCompetitions.context";
+export default function Competitions({ navigation}) {
+  const fireBaseCompetitionData = useContext(FireBaseCompetitionContext)
   const enterCompetition = (category) => {
     navigation.navigate("Enter", { category: category });
   };
@@ -28,14 +30,16 @@ export default function Competitions({ navigation, data }) {
   ];
 
   let randomIndex = Math.floor(Math.random() * loadingMessages.length);
+  console.log(fireBaseCompetitionData)
+
 
   const competitions =
-    data &&
-    data.map((i, index) => (
+    fireBaseCompetitionData &&
+    fireBaseCompetitionData.map((i, index) => (
       <CompetitionCard
         {...i}
         key={index}
-        navigation={() => enterCompetition(i.category)}
+        navigation={() => enterCompetition(i.competitionName)}
       />
     ));
 
@@ -45,7 +49,7 @@ export default function Competitions({ navigation, data }) {
 
   const viewResults = () => {};
 
-  return data && competitions ? (
+  return fireBaseCompetitionData && competitions ? (
     <View style={styles.container}>
       <ScrollView
         horizontal
