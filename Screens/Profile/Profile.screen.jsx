@@ -12,8 +12,6 @@ import Input from "../../Components/Input/Input.component";
 import Buttn from "../../Components/Button/Button.component";
 import * as IPicker from "expo-image-picker";
 import { getCurrUser, signOut } from "../../services/firebase.services";
-import { getUserInformation, updateUserProfilePhoto } from "../../services/firestore.db";
-import { useFocusEffect } from "@react-navigation/native";
 import { FirebaseContext } from "../../store/FirebaseUser.context";
 
 export default function Profile({navigation}) {

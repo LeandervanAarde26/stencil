@@ -1,5 +1,11 @@
 import { Platform, Text, View } from "react-native";
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { styles } from "./Enter.styles";
 import ImagePicker from "../../Components/ImagePicker/ImagePicker.component";
 import Input from "../../Components/Input/Input.component";
@@ -7,12 +13,17 @@ import { Picker } from "@react-native-picker/picker";
 import Buttn from "../../Components/Button/Button.component";
 import { Colors } from "../../Utils/Colors";
 import * as IPicker from "expo-image-picker";
-import { useFocusEffect } from "@react-navigation/native";
+
 import { TextStyles } from "../../Utils/Text";
-import { EnterCompetition, addCompetitionImage } from "../../services/firestore.db";
+// import { CommonActions } from 'react-navigation/native';
+import {
+  EnterCompetition,
+  addCompetitionImage,
+} from "../../services/firestore.db";
 import { FirebaseContext } from "../../store/FirebaseUser.context";
 import { FireBaseCompetitionContext } from "../../store/FireBaseCompetitions.context";
 import SModal from "../../Components/Modal/Modal.component";
+import { CommonActions, useFocusEffect } from "@react-navigation/native";
 
 const requiredFields = {
   name: "",
@@ -23,20 +34,22 @@ const requiredFields = {
 
 export default function Enter({ route, navigation }) {
   const [values, setValues] = useState(requiredFields);
-  const { name, description, competition, competitionId} = values;
-  const category = route.params;
+  const { name, description, competition, competitionId } = values;
+  const [category, setCategory] = useState(route.params)
+  // let category = route.params.category;
   const [nameErr, setNameErr] = useState(false);
   const [descErr, setDescErr] = useState(false);
   const [comErr, setCompErr] = useState(false);
   const fireBaseCurrentUser = useContext(FirebaseContext);
   // const fireBaseUserInformation = useContext(FirebaseContext);
   const fireBaseCompetitionData = useContext(FireBaseCompetitionContext);
+
   const competitionNames = fireBaseCompetitionData.map((lab) => ({
     id: lab.id,
     name: lab.competitionName,
   }));
   const [modalVis, setModalVis] = useState(false);
-  const [modalText, setModalText] = useState("uploading your entry...")
+  const [modalText, setModalText] = useState("uploading your entry...");
 
   const [image, setImage] = useState(null);
   const selectImage = async () => {
@@ -49,10 +62,42 @@ export default function Enter({ route, navigation }) {
 
     if (!res.canceled) {
       setImage(res.assets[0].uri);
-      setValues({ ...values, image: res.assets[0].uri})
+      setValues({ ...values, image: res.assets[0].uri });
       console.log(res);
     }
   };
+
+
+
+
+  
+  useFocusEffect(
+    useCallback(() => {
+      setValues({ ...values, competition: category });      
+      console.log('focused');
+      const unsubscribe = navigation.addListener("blur", () => {
+        setValues({ ...values, competition: "" });
+        console.log(route.params)
+        
+      });
+      
+  
+      return () => {
+        unsubscribe();
+        // const reset = CommonActions.reset({
+        //   index: 0,
+        //   actions: [
+        //       CommonActions.navigate( 'Enter')
+        //   ]
+        // })
+    
+      };
+    }, [category])
+  );
+
+
+  console.log(category, "CAT")
+  console.log(competition, "COMP")
 
   const validateInputs = (key) => {
     switch (key) {
@@ -68,7 +113,7 @@ export default function Enter({ route, navigation }) {
     }
   };
 
-  const handleClick = () =>{
+  const handleClick = () => {
     EnterCompetition(values, fireBaseCurrentUser);
     setValues({
       name: "",
@@ -76,34 +121,35 @@ export default function Enter({ route, navigation }) {
       competition: "none",
       image: null,
     });
-    setImage(null)
-    setModalVis(prev => !prev);
+    setImage(null);
+    setModalVis((prev) => !prev);
 
-    setTimeout(() =>{
-      setModalVis(prev => !prev);
-  }, 2000)
-  }
+    setTimeout(() => {
+      setModalVis((prev) => !prev);
+    }, 2000);
+  };
   return (
     <>
       <View style={styles.container}>
-        {
-          modalVis &&
+        {modalVis && (
           <SModal
             value={modalVis}
             toggleModal={null}
             text={"Uploading your entry..."}
           />
-        }
+        )}
         <Text style={TextStyles.headingTwo}>
           Your Entry{" "}
-          {category == undefined || null ? "" : `into ${category.category}`}
+          {category == undefined ||category ==  null || competition === ""
+            ? ""
+            : `into ${competition}`}
         </Text>
         <ImagePicker image={image} selectImage={selectImage} />
       </View>
       <View style={styles.container2}>
         <Input
           value={name}
-          label={nameErr ? "Enter valid artwork name": "Artwork Name"}
+          label={nameErr ? "Enter valid artwork name" : "Artwork Name"}
           placeholder={"eg. Neo Trad Face"}
           keyboardType="default"
           autoCapitalize={"none"}
@@ -124,33 +170,35 @@ export default function Enter({ route, navigation }) {
 
         <Text style={styles.label}>Add Competition</Text>
 
-        {category == null ? (
-
-
-
-<View style={styles.pickerContainer} itemStyle={{
-  color: Colors.primary,
-  backgroundColor: Colors.primary,
-}}>
-  <Picker
-    style={styles.picker}
-    selectedValue={competition}
-    onValueChange={(item) => setValues({ ...values, competition: item})}
-    mode="dropdown"
-  >
-    <Picker.Item label="None" value={null} />
-    {competitionNames &&
-      competitionNames.map((i, index) => (
-        <Picker.Item
-          key={i.id}
-          style={styles.pickerItem}
-          label={i.name}
-          color={Platform.OS === "android" ? "black" : "white"}
-          value={i.name}
-        />
-      ))}
-  </Picker>
-</View>
+        {category == null || competition === "" ? (
+          <View
+            style={styles.pickerContainer}
+            itemStyle={{
+              color: Colors.primary,
+              backgroundColor: Colors.primary,
+            }}
+          >
+            <Picker
+              style={styles.picker}
+              selectedValue={competition}
+              onValueChange={(item) =>
+                setValues({ ...values, competition: item })
+              }
+              mode="dropdown"
+            >
+              <Picker.Item label="None" value={null} />
+              {competitionNames &&
+                competitionNames.map((i, index) => (
+                  <Picker.Item
+                    key={i.id}
+                    style={styles.pickerItem}
+                    label={i.name}
+                    color={Platform.OS === "android" ? "black" : "white"}
+                    value={i.name}
+                  />
+                ))}
+            </Picker>
+          </View>
         ) : null}
 
         <View style={styles.buttonContainer}>
