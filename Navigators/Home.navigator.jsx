@@ -58,7 +58,7 @@ export default function Home() {
             component={Voting}
             options={{
               tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="leaderboard" color={color} size={30} />
+                <MaterialIcons name="thumb-up" color={color} size={26} />
               ),
             }}
           />
@@ -78,11 +78,11 @@ export default function Home() {
           />
 
           <Tab.Screen
-            name={"Categories"}
+            name={"Styles"}
             component={Categories}
             options={{
               tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="groups" color={color} size={30} />
+                <MaterialIcons name="palette" color={color} size={30} />
               ),
             }}
           />

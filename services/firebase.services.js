@@ -78,8 +78,6 @@ export const signOut = () => {
   Auth.signOut()
 }
 
-
-
 export const getCurrUser = () => {
   return Auth.currentUser;
 };

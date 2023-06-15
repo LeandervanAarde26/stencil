@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import { styles } from "./VoteCard.styles";
 const width = Dimensions.get("window").width;
 
-export default function VoteCard({ item, removeCard, swipedDirection }) {
+export default function VoteCard({ item, removeCard, swipedDirection, profileImage }) {
   const [show, setShow] = useState(true);
   let side;
   const [vote, setVote] = useState(null)
@@ -111,7 +111,7 @@ export default function VoteCard({ item, removeCard, swipedDirection }) {
         <View style={styles.imageContainer}>
           <Image
             source={{
-              uri: item.profileImage,
+              uri: profileImage,
             }}
             style={styles.image}
             resizeMode="cover"

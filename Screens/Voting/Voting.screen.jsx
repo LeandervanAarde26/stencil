@@ -8,7 +8,7 @@ import { Colors } from "../../Utils/Colors";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { TextStyles } from "../../Utils/Text";
 import { addProjectsToDataBase } from "../../services/firebase.services";
-import { getAllEntries } from "../../services/firestore.db";
+import { getAllEntries, getAllTesterEntries } from "../../services/firestore.db";
 export default function Voting() {
   const [cardsDone, setCardsDone] = useState(false);
   // const [data, setData] = useState(tattooEntries);
@@ -65,12 +65,6 @@ export default function Voting() {
     getUserEntries();
   }, []);
 
-  console.log("====================================");
-  console.log(entries);
-  console.log("====================================");
-  console.log("====================================");
-  console.log(entries[0]);
-
   return (
     <View style={styles.container}>
       <View
@@ -113,6 +107,7 @@ export default function Voting() {
               <VoteCard
                 key={item.id}
                 item={item}
+                profileImage={item.user['profileImage']}
                 index={entries.length - index - 1}
                 removeCard={() => changeIndex()}
                 swipedDirection={(direction) =>

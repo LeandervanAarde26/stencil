@@ -32,6 +32,7 @@ const requiredFields = {
   image: null,
 };
 
+
 export default function Enter({ route, navigation }) {
   const [values, setValues] = useState(requiredFields);
   const { name, description, competition, competitionId } = values;
@@ -48,6 +49,7 @@ export default function Enter({ route, navigation }) {
     id: lab.id,
     name: lab.competitionName,
   }));
+
   const [modalVis, setModalVis] = useState(false);
   const [modalText, setModalText] = useState("uploading your entry...");
 
@@ -68,20 +70,20 @@ export default function Enter({ route, navigation }) {
   };
 
 
-
-
-  
   useFocusEffect(
     useCallback(() => {
-      setValues({ ...values, competition: category });      
-      console.log('focused');
+      setValues({ ...values, competition: category });
+      console.log("USER", fireBaseCurrentUser.userId)
+      console.log('focused', fireBaseCompetitionData);
       const unsubscribe = navigation.addListener("blur", () => {
         setValues({ ...values, competition: "" });
         console.log(route.params)
-        
+
       });
-      
-  
+
+
+
+
       return () => {
         unsubscribe();
         // const reset = CommonActions.reset({
@@ -90,7 +92,7 @@ export default function Enter({ route, navigation }) {
         //       CommonActions.navigate( 'Enter')
         //   ]
         // })
-    
+
       };
     }, [category])
   );
@@ -114,7 +116,7 @@ export default function Enter({ route, navigation }) {
   };
 
   const handleClick = () => {
-    EnterCompetition(values, fireBaseCurrentUser);
+    EnterCompetition(values, fireBaseCurrentUser.userId);
     setValues({
       name: "",
       description: "",
@@ -140,7 +142,7 @@ export default function Enter({ route, navigation }) {
         )}
         <Text style={TextStyles.headingTwo}>
           Your Entry{" "}
-          {category == undefined ||category ==  null || competition === ""
+          {category == undefined || category == null || competition === ""
             ? ""
             : `into ${competition}`}
         </Text>
@@ -187,7 +189,7 @@ export default function Enter({ route, navigation }) {
               mode="dropdown"
             >
               <Picker.Item label="None" value={null} />
-              {competitionNames &&
+              {fireBaseCompetitionData &&
                 competitionNames.map((i, index) => (
                   <Picker.Item
                     key={i.id}

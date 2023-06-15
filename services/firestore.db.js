@@ -8,9 +8,14 @@ import {
   getDocs,
   query,
   updateDoc,
+  where,
+  documentId,
 } from "firebase/firestore";
 import { db } from "../Utils/Firebase";
 import { uploadImages } from "./firebase.storage";
+
+
+
 
 export const createNewUser = async (username, email, role, id, profileImage) => {
   try {
@@ -92,9 +97,7 @@ export const EnterCompetition = async (entry, user) => {
         description: entry.description,
         image: uri,
         name: entry.name,
-        username: user.username,
-        email: user.email,
-        profileImage: user.profileImage,
+        user: user,
         competition: entry.competition
       }
     );
@@ -105,22 +108,36 @@ export const EnterCompetition = async (entry, user) => {
   }
 };
 
+
+export const updateProfile = async (name, email, website, instagram, number , image) => {
+    console.log(name, email, website, instagram, number , image)
+}
+
 export const getAllEntries = async () =>{
 
-  var entries = [];
+  const competitions = [];
   try {
-    const snapShot = await getDocs(query(collection(db, "entries")));
-    snapShot.forEach((doc) => {
-      console.log(doc.id, "=>", doc.data());
-      entries.push({ ...doc.data(), id: doc.id });
-    });
-
-    return entries;
+  
+    const snapShot = await getDocs(collection(db, 'entries'));
+    const userRef = collection(db, "users");
+    await Promise.all(
+      snapShot.docs.map(async (doc) => {
+        const userDataRef = doc.data().user;
+        const q = query(userRef, where(documentId(), '==', userDataRef));
+        const userSnapshot = await getDocs(q);
+        const user = userSnapshot.docs[0].data();
+        competitions.push({ ...doc.data(), user, id: doc.id });
+      })
+    );
+    // console.log( "ENTRIES" , competitions); 
+    return competitions
+ 
   } catch (error) {
-    console.log("====================================");
-    console.log("Categories error:", error);
-    console.log("====================================");
-
-    return entries;
+    console.log("GETERR", error)
+    return competitions;
   }
+}
+
+export const getAllTesterEntries = async () => {
+
 }
