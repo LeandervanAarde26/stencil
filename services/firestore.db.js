@@ -98,7 +98,7 @@ export const EnterCompetition = async (entry, user) => {
   try {
     console.log(entry);
     const uri = await uploadImages(entry.image, `entries/${entry.name}`);
-    const docRef = await addDoc(collection(db, `entries`), {
+    const docRef = await addDoc(collection(db, "entries"), {
       description: entry.description,
       image: uri,
       name: entry.name,
@@ -106,14 +106,26 @@ export const EnterCompetition = async (entry, user) => {
       competition: entry.competition,
     });
 
-    return true
+    const querySnapshot = await getDocs(
+      query(
+        collection(db, "competitions"),
+        where("competitionName", "==", entry.competition)
+      )
+    );
+    querySnapshot.forEach((document) => {
+      const currentCompetitors = document.data().contestants;
+      const competitionDocRef = doc(db, "competitions", document.id);
+      updateDoc(competitionDocRef, { contestants: currentCompetitors + 1 });
+    });
+
+    return true;
+    // }
   } catch (error) {
     console.log("====================================");
     console.log("Enter error:", error);
     console.log("====================================");
+    return false;
   }
-
-  return false
 };
 
 export const updateProfile = async (values, id) => {
@@ -189,5 +201,20 @@ export const deleteCurrentUser = async (id) => {
     console.log("====================================");
   } catch (error) {
     console.log("COLLECTION DELETE ERROR |", error);
+  }
+};
+
+export const resetCompetitions = async (id, newTime, newReset) => {
+  try {
+    const docRef = doc(db, "competitions", id);
+    const updatedDocument = await updateDoc(docRef, {
+      remainingTime: newTime,
+      resetDate: newReset,
+    });
+    console.log("reset")
+
+    return true
+  } catch (error) {
+    console.log(error);
   }
 };

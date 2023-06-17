@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     borderColor: Colors.White,
     elevation: 3,
     overflow: "hidden",
-    backgroundColor: "red",
+    backgroundColor: Colors.primary,
     position: "absolute",
   },
 
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
   imageContainer: {
     width: 70,
     aspectRatio: 1 / 1,
-    backgroundColor: "red",
+    backgroundColor: Colors.primary,
     borderRadius: 50,
     borderWidth: 3,
     borderColor: Colors.White,

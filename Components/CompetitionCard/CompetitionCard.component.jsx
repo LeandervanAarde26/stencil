@@ -33,7 +33,7 @@ export default function CompetitionCard({
   const onLoadEnd = () => {
     setLoadEnd(prev => !prev);
   }
-  
+
 
   useEffect(() => {
     const calculateTimeDifference = () => {

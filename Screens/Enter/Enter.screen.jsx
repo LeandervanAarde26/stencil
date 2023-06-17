@@ -118,24 +118,21 @@ export default function Enter({ route }) {
   };
 
   const handleClick = async () => {
-    // const entry = await EnterCompetition(values, fireBaseCurrentUser.userId);
-    // if (entry) {
-    //   setValues({
-    //     name: "",
-    //     description: "",
-    //     competition: "none",
-    //     image: null,
-    //   });
-    //   setImage(null);
-    //   setModalVis((prev) => !prev);
+    const entry = await EnterCompetition(values, fireBaseCurrentUser.userId);
+    if (entry) {
+      setValues({
+        name: "",
+        description: "",
+        competition: "none",
+        image: null,
+      });
+      setImage(null);
+      setModalVis((prev) => !prev);
 
-    //   setTimeout(() => {
-    //     setModalVis((prev) => !prev);
-    //   }, 2000);
-    // }
-
-    console.log(values.competition);
-    console.log(route.params);
+      setTimeout(() => {
+        setModalVis((prev) => !prev);
+      }, 2000);
+    }   
   };
   return (
     <>

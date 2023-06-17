@@ -12,7 +12,7 @@ export default function CategoryCard({ category, image, onPressHandler }) {
   return (
     <View style={styles.cardContainer}>
       <Pressable
-         onPress={onPressHandler}
+        onPress={onPressHandler}
         style={({ pressed }) =>
           pressed
             ? [styles.pressedIos, styles.innerContainer]
