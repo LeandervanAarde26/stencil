@@ -62,28 +62,6 @@ export default function Competitions({ navigation, route }) {
     return unsubscribe;
   }, [navigation, route.params?.cat, fireBaseCompetitionData]);
   
-  // console.log(comps);
-  // console.log(route.params);
-
-
-
-
-
-  // useEffect(() => {
-  //   if (fireBaseCompetitionData) {
-  //     if (route.params?.cat !== undefined) {
-  //       const filteredData = fireBaseCompetitionData.filter((competition) => {
-  //         return competition.category === route.params?.cat;
-  //       });
-  //       setComps(filteredData);
-  //     } else {
-  //       setComps(fireBaseCompetitionData);
-  //     }
-  //   }
-  // }, [isFocused, route.params?.cat, fireBaseCompetitionData]);
-
-
-
   const judgeCompetition = (id) => {
     navigation.navigate("Vote", { entries: id });
   };
