@@ -59,6 +59,7 @@ export default function Register({ navigation }) {
           break;
         default:
           navigation.navigate("Home");
+          setValues(defaultValues)
           break;
       }
     }

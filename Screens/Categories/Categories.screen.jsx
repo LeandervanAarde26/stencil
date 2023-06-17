@@ -4,9 +4,9 @@ import { styles } from "./Categories.styles";
 import CategoryCard from "../../Components/CategoryCard/CategoryCard.component";
 import { getCategories } from "../../services/firestore.db";
 
-export default function Categories() {
-  const [data, setData] = useState()
 
+export default function Categories({navigation}) {
+  const [data, setData] = useState()
   useEffect(() => {
     getAllCats()
   }, []);
@@ -19,8 +19,6 @@ export default function Categories() {
   console.log(getRequest);
   console.log('====================================');
   }
-
-
   console.log("DATA", data)
 
   return (
@@ -30,7 +28,7 @@ export default function Categories() {
           <FlatList
           data={data}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <CategoryCard {...item} />}
+          renderItem={({ item }) => <CategoryCard {...item} onPressHandler={() => navigation.navigate("Competitions", {cat: item.id})} />}
           numColumns={2}
         />
         }

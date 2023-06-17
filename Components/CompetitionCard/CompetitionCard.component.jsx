@@ -14,7 +14,8 @@ export default function CompetitionCard({
   category,
   contestants,
   image,
-  navigation
+  navigation,
+  judging
 }) {
   const width = Dimensions.get("window").width;
   const unixTimestamp = remainingTime;
@@ -107,7 +108,7 @@ export default function CompetitionCard({
             icon={"add-circle-outline"}
           />
           }
-          <Buttn buttonType={"secondary"} label={"Judge"} icon={"gavel"} />
+          <Buttn buttonType={"secondary"} label={"Judge"} icon={"gavel"} onPressHandler={judging}/>
         </View>
       </View>
     </View>

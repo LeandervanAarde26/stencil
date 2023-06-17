@@ -1,11 +1,12 @@
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { Auth } from "../Utils/Firebase";
-import { addAllProjs, createNewUser } from "./firestore.db";
+import { addAllProjs, createNewUser, deleteCurrentUser } from "./firestore.db";
 
 export const registerUser = async (username, email, password, role) => {
 
@@ -28,6 +29,8 @@ export const registerUser = async (username, email, password, role) => {
     return errorMessage;
   }
 };
+
+
 
 export const loginUser = async (email, password) => {
   try {
@@ -77,6 +80,19 @@ export const resetPassword = async (email) => {
 export const signOut = () => {
   Auth.signOut()
 }
+
+export const deleteAccount = async (user) => {
+  try {
+    await deleteCurrentUser(Auth.currentUser.uid);
+    await deleteUser(Auth.currentUser);
+
+    return true
+  } catch (error) {
+    console.log("AUTH DELETE ERR", error);
+
+    return false
+  }
+};
 
 export const getCurrUser = () => {
   return Auth.currentUser;

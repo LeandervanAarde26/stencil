@@ -7,12 +7,13 @@ export const FireBaseCompetitionProvider = ({ children }) => {
   const [competitions, setCompetitions] = useState();
 
   useEffect(() => {
-    const getComps = async () => {
-      const allCompetitions = await getAllCompetitions();
-      setCompetitions(allCompetitions);
-    };
     getComps();
-  }, []);
+  }, [getComps]);
+
+  const getComps = async () => {
+    const allCompetitions = await getAllCompetitions();
+    setCompetitions(allCompetitions);
+  };
 
   return (
     <FireBaseCompetitionContext.Provider value={competitions}>

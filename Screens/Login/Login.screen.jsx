@@ -30,6 +30,7 @@ export default function Login({ navigation }) {
       switch (success) {
         case true:
           navigation.navigate("Home");
+          setValues(defaultValues)
           break;
         case "Firebase: Error (auth/wrong-password).":
           Alert.alert(

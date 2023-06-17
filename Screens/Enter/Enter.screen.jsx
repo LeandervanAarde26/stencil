@@ -23,7 +23,12 @@ import {
 import { FirebaseContext } from "../../store/FirebaseUser.context";
 import { FireBaseCompetitionContext } from "../../store/FireBaseCompetitions.context";
 import SModal from "../../Components/Modal/Modal.component";
-import { CommonActions, useFocusEffect } from "@react-navigation/native";
+import {
+  CommonActions,
+  useFocusEffect,
+  useNavigation,
+} from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 
 const requiredFields = {
   name: "",
@@ -32,11 +37,9 @@ const requiredFields = {
   image: null,
 };
 
-
-export default function Enter({ route, navigation }) {
+export default function Enter({ route }) {
   const [values, setValues] = useState(requiredFields);
   const { name, description, competition, competitionId } = values;
-  const [category, setCategory] = useState(route.params)
   // let category = route.params.category;
   const [nameErr, setNameErr] = useState(false);
   const [descErr, setDescErr] = useState(false);
@@ -44,6 +47,7 @@ export default function Enter({ route, navigation }) {
   const fireBaseCurrentUser = useContext(FirebaseContext);
   // const fireBaseUserInformation = useContext(FirebaseContext);
   const fireBaseCompetitionData = useContext(FireBaseCompetitionContext);
+  const isFocused = useIsFocused();
 
   const competitionNames = fireBaseCompetitionData.map((lab) => ({
     id: lab.id,
@@ -52,13 +56,14 @@ export default function Enter({ route, navigation }) {
 
   const [modalVis, setModalVis] = useState(false);
   const [modalText, setModalText] = useState("uploading your entry...");
+  const navigation = useNavigation();
 
   const [image, setImage] = useState(null);
   const selectImage = async () => {
     let res = await IPicker.launchImageLibraryAsync({
       mediaTypes: IPicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [9, 16],
+      aspect: [4, 3],
       quality: 1,
     });
 
@@ -69,37 +74,34 @@ export default function Enter({ route, navigation }) {
     }
   };
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      navigation.setParams({ category: null });
+    });
 
-  useFocusEffect(
-    useCallback(() => {
-      setValues({ ...values, competition: category });
-      console.log("USER", fireBaseCurrentUser.userId)
-      console.log('focused', fireBaseCompetitionData);
-      const unsubscribe = navigation.addListener("blur", () => {
-        setValues({ ...values, competition: "" });
-        console.log(route.params)
+    return unsubscribe;
+  }, [navigation]);
 
+  useEffect(() => {
+    if (!isFocused) {
+      console.log("Left the screen");
+    }
+
+    
+    if (route.params?.category) {
+      setValues({
+        ...values,
+        competition:
+          route.params.category === null ? competition : route.params?.category,
       });
+    } else {
+      setValues({
+        ...values,
+        competition: competition
+      })
+    }
 
-
-
-
-      return () => {
-        unsubscribe();
-        // const reset = CommonActions.reset({
-        //   index: 0,
-        //   actions: [
-        //       CommonActions.navigate( 'Enter')
-        //   ]
-        // })
-
-      };
-    }, [category])
-  );
-
-
-  console.log(category, "CAT")
-  console.log(competition, "COMP")
+  }, [isFocused]);
 
   const validateInputs = (key) => {
     switch (key) {
@@ -115,20 +117,25 @@ export default function Enter({ route, navigation }) {
     }
   };
 
-  const handleClick = () => {
-    EnterCompetition(values, fireBaseCurrentUser.userId);
-    setValues({
-      name: "",
-      description: "",
-      competition: "none",
-      image: null,
-    });
-    setImage(null);
-    setModalVis((prev) => !prev);
+  const handleClick = async () => {
+    // const entry = await EnterCompetition(values, fireBaseCurrentUser.userId);
+    // if (entry) {
+    //   setValues({
+    //     name: "",
+    //     description: "",
+    //     competition: "none",
+    //     image: null,
+    //   });
+    //   setImage(null);
+    //   setModalVis((prev) => !prev);
 
-    setTimeout(() => {
-      setModalVis((prev) => !prev);
-    }, 2000);
+    //   setTimeout(() => {
+    //     setModalVis((prev) => !prev);
+    //   }, 2000);
+    // }
+
+    console.log(values.competition);
+    console.log(route.params);
   };
   return (
     <>
@@ -142,9 +149,11 @@ export default function Enter({ route, navigation }) {
         )}
         <Text style={TextStyles.headingTwo}>
           Your Entry{" "}
-          {category == undefined || category == null || competition === ""
+          {route.params?.category == undefined ||
+          route.params?.category == null ||
+          route.params?.category === ""
             ? ""
-            : `into ${competition}`}
+            : `into ${route.params?.category}`}
         </Text>
         <ImagePicker image={image} selectImage={selectImage} />
       </View>
@@ -172,7 +181,7 @@ export default function Enter({ route, navigation }) {
 
         <Text style={styles.label}>Add Competition</Text>
 
-        {category == null || competition === "" ? (
+        {route.params?.category !== null ? null : (
           <View
             style={styles.pickerContainer}
             itemStyle={{
@@ -201,7 +210,7 @@ export default function Enter({ route, navigation }) {
                 ))}
             </Picker>
           </View>
-        ) : null}
+        )}
 
         <View style={styles.buttonContainer}>
           {!nameErr && !descErr && !comErr && (

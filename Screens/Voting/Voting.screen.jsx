@@ -8,14 +8,18 @@ import { Colors } from "../../Utils/Colors";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { TextStyles } from "../../Utils/Text";
 import { addProjectsToDataBase } from "../../services/firebase.services";
-import { getAllEntries, getAllTesterEntries } from "../../services/firestore.db";
-export default function Voting() {
+import {
+  getAllEntries,
+  getAllTesterEntries,
+} from "../../services/firestore.db";
+import { useIsFocused } from "@react-navigation/native";
+export default function Voting({ route, navigation }) {
   const [cardsDone, setCardsDone] = useState(false);
   // const [data, setData] = useState(tattooEntries);
   const [direction, setDirection] = useState();
   const [votes, setVotes] = useState(null);
   const [entries, setEntries] = useState([]);
-
+  const isFocused = useIsFocused();
   const removeCard = (id) => {
     // data.splice(
     //   data.findIndex((item) => item.id == id),
@@ -56,14 +60,37 @@ export default function Voting() {
     }
   };
 
+  // Get all entries and set it there
   useEffect(() => {
     const getUserEntries = async () => {
       const allEntries = await getAllEntries();
-   
-      setEntries(allEntries);
+      let filteredEntries = allEntries;
+      if (
+        route.params?.entries !== null &&
+        route.params?.entries !== undefined
+      ) {
+        filteredEntries = allEntries.filter(
+          (entry) => entry.competition === route.params.entries
+        );
+      }
+      setEntries(filteredEntries);
     };
+
     getUserEntries();
-  }, []);
+  }, [route.params?.entries]);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("blur", () => {
+      navigation.setParams({ entries: null });
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
+    if (!isFocused) {
+      console.log("Left the screen");
+    }
+  }, [isFocused, route.params?.entries, entries]);
 
   return (
     <View style={styles.container}>
@@ -102,19 +129,21 @@ export default function Voting() {
       ) : (
         <>
           <View style={styles.innerContainer}>
-            {entries  &&
-            entries.map((item, index) => (
-              <VoteCard
-                key={item.id}
-                item={item}
-                profileImage={item.user['profileImage']}
-                index={entries.length - index - 1}
-                removeCard={() => changeIndex()}
-                swipedDirection={(direction) =>
-                  swipedDirection(direction, item.votes)
-                }
-              />
-            )).reverse()}
+            {entries &&
+              entries
+                .map((item, index) => (
+                  <VoteCard
+                    key={item.id}
+                    item={item}
+                    profileImage={item.user["profileImage"]}
+                    index={entries.length - index - 1}
+                    removeCard={() => changeIndex()}
+                    swipedDirection={(direction) =>
+                      swipedDirection(direction, item.votes)
+                    }
+                  />
+                ))
+                .reverse()}
           </View>
 
           <Text
