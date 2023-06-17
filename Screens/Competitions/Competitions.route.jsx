@@ -46,6 +46,7 @@ export default function Competitions({ navigation, route }) {
       navigation.setParams({ cat: null });
     });
   
+    console.log("HEY")
 
     if (fireBaseCompetitionData && route.params?.cat !== null && route.params !== undefined) {
       let filteredData = null;
