@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
     borderWidth: 3,
     height: 250,
     overflow: "hidden",
+    marginVertical: 7
   },
 
   col: {

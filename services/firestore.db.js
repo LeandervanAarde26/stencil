@@ -14,6 +14,8 @@ import {
   FieldValue,
   increment,
   arrayUnion,
+  orderBy,
+  limit,
 } from "firebase/firestore";
 import { db } from "../Utils/Firebase";
 import { uploadImages } from "./firebase.storage";
@@ -237,3 +239,26 @@ export const voteOnCompetition = async (userId, id, direction) => {
     console.log(error);
   }
 };
+
+
+export const getCompetitionLeaders = async () => {
+  const competitions = [];
+  try {
+    const snapShot = await getDocs(query(collection(db, "entries"), orderBy("votes", "desc"), limit(10)));
+    const userRef = collection(db, "users");
+    await Promise.all(
+      snapShot.docs.map(async (doc) => {
+        const userDataRef = doc.data().user;
+        const q = query(userRef, where(documentId(), "==", userDataRef));
+        const userSnapshot = await getDocs(q);
+        const user = userSnapshot.docs[0].data();
+        competitions.push({ ...doc.data(), user, id: doc.id });
+      })
+    );
+    // console.log( "ENTRIES" , competitions);
+    return competitions;
+  } catch (error) {
+    console.log("GETERR", error);
+    return competitions;
+  }
+}
