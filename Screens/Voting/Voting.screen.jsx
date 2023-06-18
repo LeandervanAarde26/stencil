@@ -1,5 +1,11 @@
 import { Image, Text, View, Linking } from "react-native";
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { styles } from "./Voting.styles";
 import Buttn from "../../Components/Button/Button.component";
 import VoteCard from "../../Components/VoteCard/VoteCard.component";
@@ -16,8 +22,11 @@ import {
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { TextStyles } from "../../Utils/Text";
 import { FirebaseContext } from "../../store/FirebaseUser.context";
-import { registerForPushNotificationsAsync, sendPushNotification } from "../../store/pushNotifications";
-import * as Notifications from 'expo-notifications';
+import {
+  registerForPushNotificationsAsync,
+  sendPushNotification,
+} from "../../store/pushNotifications";
+import * as Notifications from "expo-notifications";
 
 export default function Voting({ route, navigation }) {
   const [cardsDone, setCardsDone] = useState(false);
@@ -39,28 +48,32 @@ export default function Voting({ route, navigation }) {
     //   setCardsDone(true);
     // }
   };
-  const [pushNotToken, setPushNotToken] = useState('');
+  const [pushNotToken, setPushNotToken] = useState("");
   const [notification, setNotification] = useState(false);
-  const notificationListener = useRef()
+  const notificationListener = useRef();
   const responseListener = useRef();
 
-
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setPushNotToken(token));
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
+    registerForPushNotificationsAsync().then((token) => setPushNotToken(token));
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        setNotification(notification);
 
-      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-        console.log(response)
+        responseListener.current =
+          Notifications.addNotificationResponseReceivedListener((response) => {
+            console.log(response);
+          });
+
+        return () => {
+          Notifications.removeNotificationSubscription(
+            notificationListener.current
+          );
+          Notifications.removeNotificationSubscription(
+            responseListener.current
+          );
+        };
       });
-
-      return () => {
-        Notifications.removeNotificationSubscription(notificationListener.current);
-        Notifications.removeNotificationSubscription(responseListener.current);
-      }
-    })
-
-  },[])
+  }, []);
 
   const [index, setIndex] = useState(0);
 
@@ -73,13 +86,13 @@ export default function Voting({ route, navigation }) {
   };
 
   const viewLeaderBoard = () => {
-    navigation.navigate("Leaderboard")
-    console.log("registered click")
-  }
+    navigation.navigate("Leaderboard",{compCat: route.params?.entries});
+    console.log("registered click");
+  };
 
   const swipedDirection = async (swipeDirection, id) => {
     setDirection(swipeDirection);
-    const lockVote = await voteOnCompetition(userId, id, swipeDirection)
+    const lockVote = await voteOnCompetition(userId, id, swipeDirection);
   };
 
   console.log(entries);
@@ -87,12 +100,11 @@ export default function Voting({ route, navigation }) {
   // Get all entries and set it there
   useFocusEffect(
     useCallback(() => {
- 
       const getUserEntries = async () => {
         const allEntries = await getAllEntries();
-        let nextStep =  allEntries.filter((document) => {
-          return !document.voters.includes(userId)
-          })
+        let nextStep = allEntries.filter((document) => {
+          return !document.voters.includes(userId);
+        });
 
         let filteredEntries = nextStep;
         if (
@@ -104,13 +116,11 @@ export default function Voting({ route, navigation }) {
           );
         }
         setEntries(filteredEntries);
-       
       };
-  
+
       getUserEntries();
     }, [route.params?.entries])
-  )
-
+  );
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("blur", () => {
@@ -118,6 +128,9 @@ export default function Voting({ route, navigation }) {
     });
     return unsubscribe;
   }, [navigation]);
+
+
+
 
   useEffect(() => {
     if (!isFocused) {
@@ -160,28 +173,40 @@ export default function Voting({ route, navigation }) {
         }}
       >
         {index === entries.length ? null : (
-          <Text style={[TextStyles.smallText]}>
-            {entries[index].competition}
-          </Text>
-        )}
-        <Buttn
-          label={"Leaderboard"}
-          buttonType={"secondary"}
-          onPressHandler={viewLeaderBoard}
-          icon={"leaderboard"}
+          <>
+            <Text style={[TextStyles.smallText]}>
+              {entries[index].competition}
+            </Text>
 
-        />
+            <Buttn
+              label={"Leaderboard"}
+              buttonType={"secondary"}
+              onPressHandler={viewLeaderBoard}
+              icon={"leaderboard"}
+            />
+          </>
+        )}
       </View>
 
       {index === entries.length ? (
         <View style={styles.done}>
+          <Buttn
+            label={"Leaderboard"}
+            buttonType={"secondary"}
+            onPressHandler={viewLeaderBoard}
+            icon={"leaderboard"}
+          />
           <Image source={require("../../assets/testerImage.png")} />
           <Text style={styles.noMoreEntries}>End of the line!</Text>
           <Text style={styles.subText}>
             There are no more entries in Neo Traditional, come back later to
             explore more tattoos!
           </Text>
-          <Buttn buttonType={"primaryOutline"} label={"explore categories"} onPressHandler={() => navigation.navigate("Competitions")} />
+          <Buttn
+            buttonType={"primaryOutline"}
+            label={"explore categories"}
+            onPressHandler={() => navigation.navigate("Competitions")}
+          />
         </View>
       ) : (
         <>
@@ -216,15 +241,15 @@ export default function Voting({ route, navigation }) {
                 color={Colors.secondary}
                 size={20}
               />
-              <Text style={[TextStyles.body, { paddingLeft: 10 }]}>
+              <Text style={[TextStyles.body, { paddingHorizontal: 10 }]}>
                 {entries[index].user["username"]}
               </Text>
             </View>
-            <Text style={[TextStyles.headingThree, { paddingLeft: 20 }]}>
+            <Text style={[TextStyles.headingThree, { paddingHorizontal: 20 }]}>
               {entries[index].name}
-            </Text> 
+            </Text>
 
-            <Text style={[TextStyles.body, { paddingLeft: 20 }]}>
+            <Text style={[TextStyles.body, { paddingHorizontal: 20 }]}>
               {entries[index].description}
             </Text>
 
@@ -236,7 +261,7 @@ export default function Voting({ route, navigation }) {
                 onPressHandler={onPressHandler}
               />
               <Buttn
-                 icon={"phone"}
+                icon={"phone"}
                 buttonType={"secondary"}
                 label={`Call ${entries[index].user["username"]}`}
                 onPressHandler={callPressHandler}

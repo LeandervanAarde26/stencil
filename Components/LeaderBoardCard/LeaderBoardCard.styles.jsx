@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
   },
   imageContainer: {
     height: "100%",
-    backgroundColor: "red",
+    backgroundColor: Colors.primary,
     justifyContent: "space-between",
     overflow: "hidden",
   },

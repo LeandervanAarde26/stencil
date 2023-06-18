@@ -69,7 +69,7 @@ export const resetPassword = async (email) => {
   try {
     const reset = await sendPasswordResetEmail(Auth, email);
     return true;
-  } catch (err) { // Fix variable name here
+  } catch (err) { 
     const errCode = err.code;
     const errMsg = err.message;
     console.log("error", errCode, ":", errMsg);

@@ -8,19 +8,34 @@ import { useFocusEffect } from "@react-navigation/native";
 import { getCompetitionLeaders } from "../../services/firestore.db";
 
 
-export default function Leaderboard() {
+export default function Leaderboard({route, navigation}) {
   const [leaders, setLeaders] = useState();
+  const routParams = route.params;
+
+  console.log(routParams)
 
   useFocusEffect(
     useCallback(() => {
       const getLeaders = async () => {
         const leaders = await getCompetitionLeaders();
+        if(routParams?.compCat !== null && leaders){
+            let filter = leaders.filter((document) => {
+              return  document.competition ===  routParams?.compCat
+            })
+            console.log('====================================');
+            console.log("COMPETITIONS", filter)
+            console.log('====================================');
+            setLeaders(filter);
+        } else{
         console.log("leaders", leaders);
         setLeaders(leaders);
-      };
+        }
 
+      };
       getLeaders();
-    }, [])
+
+
+    }, [routParams])
   );
   return (
     <View style={styles.container}>
