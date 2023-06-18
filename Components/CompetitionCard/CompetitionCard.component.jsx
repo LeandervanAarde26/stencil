@@ -112,8 +112,8 @@ export default function CompetitionCard({
 
               <Buttn
                 buttonType={"secondary"}
-                label={"Judge"}
-                icon={"gavel"}
+                label={"leaders"}
+                icon={"leaderboard"}
                 onPressHandler={judging}
               />
             </>

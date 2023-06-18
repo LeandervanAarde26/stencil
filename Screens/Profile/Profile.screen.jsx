@@ -126,6 +126,10 @@ export default function Profile({ navigation }) {
         </Text>
 
         <Text style={styles.role}>
+          Competitions won:  {fireBaseUserInformation ? values.competitionsWon : "Loading..."}
+        </Text>
+
+        <Text style={styles.role}>
           {fireBaseUserInformation ? values.role : "Loading..."}
         </Text>
       </ImageBackground>

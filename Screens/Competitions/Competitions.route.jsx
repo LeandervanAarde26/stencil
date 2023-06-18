@@ -79,7 +79,7 @@ export default function Competitions({ navigation, route }) {
   }, [navigation, route.params?.cat, fireBaseCompetitionData]);
 
   const judgeCompetition = (id) => {
-    navigation.navigate("Vote", { entries: id });
+    navigation.navigate("Leaderboard",{compCat: id});
   };
   return fireBaseCompetitionData && comps ? (
     <View style={styles.container}>
@@ -105,3 +105,4 @@ export default function Competitions({ navigation, route }) {
     </View>
   );
 }
+// 1687124808

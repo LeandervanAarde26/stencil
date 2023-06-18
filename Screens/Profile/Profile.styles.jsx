@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
         maxHeight: 260,
         justifyContent:'center',
         alignItems: 'center',
-        gap: 15,
+        gap: 8,
         paddingTop: 15,
     },
 
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
 
     role:{
         color: Colors.secondary,
-        fontSize: 15
+        fontSize: 15,
     }
 
 })

@@ -86,7 +86,7 @@ export default function Voting({ route, navigation }) {
   };
 
   const viewLeaderBoard = () => {
-    navigation.navigate("Leaderboard",{compCat: route.params?.entries});
+    navigation.navigate("Leaderboard", { compCat: route.params?.entries });
     console.log("registered click");
   };
 
@@ -107,15 +107,25 @@ export default function Voting({ route, navigation }) {
         });
 
         let filteredEntries = nextStep;
+
+        console.log("route.params.entries:", route.params?.entries);
+        console.log("filteredEntries:", filteredEntries);
+
         if (
           route.params?.entries !== null &&
-          route.params?.entries !== undefined
+          route.params?.entries !== undefined &&
+          filteredEntries !== null
         ) {
           filteredEntries = allEntries.filter(
             (entry) => entry.competition === route.params.entries
           );
         }
+
+        console.log("updated filteredEntries:", filteredEntries);
+
         setEntries(filteredEntries);
+
+        setIndex(0);
       };
 
       getUserEntries();
@@ -128,9 +138,6 @@ export default function Voting({ route, navigation }) {
     });
     return unsubscribe;
   }, [navigation]);
-
-
-
 
   useEffect(() => {
     if (!isFocused) {
@@ -172,10 +179,13 @@ export default function Voting({ route, navigation }) {
           gap: 40,
         }}
       >
-        {index === entries.length ? null : (
+        {index === entries.length ||
+        entries === null ||
+        entries.length === 0 ||
+        cardsDone === true ? null : (
           <>
             <Text style={[TextStyles.smallText]}>
-              {entries[index].competition}
+              {entries[index]?.competition}
             </Text>
 
             <Buttn
@@ -188,7 +198,12 @@ export default function Voting({ route, navigation }) {
         )}
       </View>
 
-      {index === entries.length ? (
+      {index === entries.length ||
+      entries === null ||
+      cardsDone === true ||
+      entries.length === 0 ||
+      !entries[index].user
+      ? (
         <View style={styles.done}>
           <Buttn
             label={"Leaderboard"}
@@ -212,6 +227,7 @@ export default function Voting({ route, navigation }) {
         <>
           <View style={styles.innerContainer}>
             {entries &&
+              !cardsDone &&
               entries
                 .map((item, index) => (
                   <VoteCard
@@ -254,18 +270,24 @@ export default function Voting({ route, navigation }) {
             </Text>
 
             <View style={styles.buttonsContainer}>
-              <Buttn
-                icon={"email"}
-                buttonType={"primary"}
-                label={`Email ${entries[index].user["username"]}`}
-                onPressHandler={onPressHandler}
-              />
-              <Buttn
-                icon={"phone"}
-                buttonType={"secondary"}
-                label={`Call ${entries[index].user["username"]}`}
-                onPressHandler={callPressHandler}
-              />
+              {entries[index].user && entries[index].user["username"] &&
+              entries[index].user["contactDetails"] &&
+              entries[index].user["contactDetails"] ? (
+                <>
+                  <Buttn
+                    icon={"email"}
+                    buttonType={"primary"}
+                    label={`Email ${entries[index].user["username"]}`}
+                    onPressHandler={onPressHandler}
+                  />
+                  <Buttn
+                    icon={"phone"}
+                    buttonType={"secondary"}
+                    label={`Call ${entries[index].user["username"]}`}
+                    onPressHandler={callPressHandler}
+                  />
+                </>
+              ) : null}
             </View>
           </View>
         </>
