@@ -1,23 +1,28 @@
-import { Image, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import { Image, Text, View, Linking } from "react-native";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { styles } from "./Voting.styles";
 import Buttn from "../../Components/Button/Button.component";
 import VoteCard from "../../Components/VoteCard/VoteCard.component";
 import Swiper from "react-native-deck-swiper";
 import { Colors } from "../../Utils/Colors";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { TextStyles } from "../../Utils/Text";
 import { addProjectsToDataBase } from "../../services/firebase.services";
 import {
   getAllEntries,
   getAllTesterEntries,
+  voteOnCompetition,
 } from "../../services/firestore.db";
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { TextStyles } from "../../Utils/Text";
+import { FirebaseContext } from "../../store/FirebaseUser.context";
+
 export default function Voting({ route, navigation }) {
   const [cardsDone, setCardsDone] = useState(false);
+  const user = useContext(FirebaseContext);
+  const userId = user.userId;
   // const [data, setData] = useState(tattooEntries);
   const [direction, setDirection] = useState();
-  const [votes, setVotes] = useState(null);
+  const [votes, setVotes] = useState(100);
   const [entries, setEntries] = useState([]);
   const isFocused = useIsFocused();
   const removeCard = (id) => {
@@ -42,42 +47,42 @@ export default function Voting({ route, navigation }) {
     }
   };
 
-  const swipedDirection = (swipeDirection, votes) => {
-    setDirection(swipeDirection);
-    // setVotes(votes +1)
-    console.log("Hey", votes);
-    console.log(swipeDirection);
-    // if(swipeDirection === "Left"){
-    //   console.log(votes)
-    // }
+  const viewLeaderBoard = () => {
+    navigation.navigate("Leaderboard")
+  }
 
-    if (swipeDirection == "Left") {
-      setVotes(votes - 1);
-      console.log(swipeDirection);
-    } else if (swipeDirection == "Right") {
-      setVotes(votes + 1);
-      console.log(votes);
-    }
+  const swipedDirection = async (swipeDirection, id) => {
+    setDirection(swipeDirection);
+    const lockVote = await voteOnCompetition(userId, id, swipeDirection)
   };
 
-  // Get all entries and set it there
-  useEffect(() => {
-    const getUserEntries = async () => {
-      const allEntries = await getAllEntries();
-      let filteredEntries = allEntries;
-      if (
-        route.params?.entries !== null &&
-        route.params?.entries !== undefined
-      ) {
-        filteredEntries = allEntries.filter(
-          (entry) => entry.competition === route.params.entries
-        );
-      }
-      setEntries(filteredEntries);
-    };
+  console.log(entries);
 
-    getUserEntries();
-  }, [route.params?.entries]);
+  // Get all entries and set it there
+  useFocusEffect(
+    useCallback(() => {
+      const getUserEntries = async () => {
+        const allEntries = await getAllEntries();
+        let nextStep =  allEntries.filter((document) => {
+          return !document.voters.includes(userId)
+          })
+
+        let filteredEntries = nextStep;
+        if (
+          route.params?.entries !== null &&
+          route.params?.entries !== undefined
+        ) {
+          filteredEntries = allEntries.filter(
+            (entry) => entry.competition === route.params.entries
+          );
+        }
+        setEntries(filteredEntries);
+      };
+  
+      getUserEntries();
+    }, [route.params?.entries])
+  )
+
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("blur", () => {
@@ -91,6 +96,29 @@ export default function Voting({ route, navigation }) {
       console.log("Left the screen");
     }
   }, [isFocused, route.params?.entries, entries]);
+
+  const onPressHandler = () => {
+    console.log(entries[index].user["email"]);
+    try {
+      const email = entries[index].user["email"];
+      const subject = encodeURIComponent("Tattoos");
+      const body = encodeURIComponent("Hi Leander,");
+      Linking.openURL(`mailto:${email}?subject=${subject}&body=${body}`);
+    } catch (error) {
+      // Handle the error here
+      console.error("Failed to open email:", error);
+    }
+  };
+
+  const callPressHandler = () => {
+    try {
+      const phoneNumber = entries[index].user["contactDetails"];
+      Linking.openURL(`tel:${phoneNumber}`);
+    } catch (error) {
+      // Handle the error here
+      console.error("Failed to open email:", error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -112,6 +140,7 @@ export default function Voting({ route, navigation }) {
           label={"Leaderboard"}
           buttonType={"secondary"}
           icon={"leaderboard"}
+          onPressHandler={viewLeaderBoard}
         />
       </View>
 
@@ -139,21 +168,53 @@ export default function Voting({ route, navigation }) {
                     index={entries.length - index - 1}
                     removeCard={() => changeIndex()}
                     swipedDirection={(direction) =>
-                      swipedDirection(direction, item.votes)
+                      swipedDirection(direction, item.id)
                     }
                   />
                 ))
                 .reverse()}
           </View>
 
-          <Text
-            style={[
-              TextStyles.headingThree,
-              { paddingLeft: 20, paddingTop: 20 },
-            ]}
-          >
-            {entries[index].name}
-          </Text>
+          <View style={styles.information}>
+            <View
+              style={{
+                flexDirection: "row",
+                paddingLeft: 20,
+                paddingVertical: 10,
+              }}
+            >
+              <MaterialIcons
+                name="person-outline"
+                color={Colors.secondary}
+                size={20}
+              />
+              <Text style={[TextStyles.body, { paddingLeft: 10 }]}>
+                {entries[index].user["username"]}
+              </Text>
+            </View>
+            <Text style={[TextStyles.headingThree, { paddingLeft: 20 }]}>
+              {entries[index].name}
+            </Text> 
+
+            <Text style={[TextStyles.body, { paddingLeft: 20 }]}>
+              {entries[index].description}
+            </Text>
+
+            <View style={styles.buttonsContainer}>
+              <Buttn
+                icon={"email"}
+                buttonType={"primary"}
+                label={`Email ${entries[index].user["username"]}`}
+                onPressHandler={onPressHandler}
+              />
+              <Buttn
+                 icon={"phone"}
+                buttonType={"secondary"}
+                label={`Call ${entries[index].user["username"]}`}
+                onPressHandler={callPressHandler}
+              />
+            </View>
+          </View>
         </>
       )}
     </View>

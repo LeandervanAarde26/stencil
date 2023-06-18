@@ -27,6 +27,7 @@ export default function Competitions({ navigation, route }) {
     navigation.navigate("Enter", { category: category });
   };
 
+
   const routeParams = route.params;
   const isFocused = useIsFocused();
   const loadingMessages = [
@@ -38,24 +39,23 @@ export default function Competitions({ navigation, route }) {
   ];
   let randomIndex = Math.floor(Math.random() * loadingMessages.length);
 
+  const convertTimeToSeconds = (days, hours) => {
+      const today = new Date();
+      const todayD = new Date(today);
+      todayD.setDate(today.getDate() + days);
+      todayD.setHours(hours, 0, 0, 0);
+      const convertedValue = todayD.getTime()/1000
+      return convertedValue
+  }
+
   const resetCompetitionDate = async (values) => {
-    const randomNumber = Math.floor(Math.random() * (10 - 3 + 1)) + 3;
+    const randomNumber = Math.floor(Math.random() * 8) + 3;
+    const randomReset = randomNumber + 4
     const todaysDate = new Date();
-    const today = new Date(todaysDate);
-    today.setDate(todaysDate.getDate() + 1);
-    const finalVal = today.getTime() / 1000;
-
-    const randomDay = new Date(todaysDate);
-    randomDay.setDate(todaysDate.getDate() + randomNumber);
-    randomDay.setHours(15, 0, 0, 0);
-    const finalNewDate = randomDay.getTime() / 1000;
-
-    const newResetDate = new Date(todaysDate);
-    newResetDate.setDate(todaysDate.getDate() + randomNumber + 4);
-    newResetDate.setHours(15, 0, 0, 0);
-    const finalReset = newResetDate.getTime() / 1000;
-;
     const currentHour = todaysDate.getHours();
+    const finalVal = convertTimeToSeconds(0 , currentHour)
+    const finalNewDate = convertTimeToSeconds(randomNumber, 15)
+    const finalReset  = convertTimeToSeconds(randomReset, 15)
     const hourRangeStart =
       new Date(
         todaysDate.getFullYear(),
@@ -71,7 +71,7 @@ export default function Competitions({ navigation, route }) {
         todaysDate.getFullYear(),
         todaysDate.getMonth(),
         todaysDate.getDate(),
-        currentHour + 1,
+        currentHour +1,
         0,
         0,
         0

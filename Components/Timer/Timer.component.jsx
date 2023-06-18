@@ -6,7 +6,7 @@ import { TextStyles } from "../../Utils/Text";
 export default function Timer({ countDown }) {
   return (
     <View style={styles.container}>
-      <Text style={[TextStyles.headingThree, styles.center]}>Remaining time for entries</Text>
+      <Text style={[TextStyles.headingThree, styles.center]}>Remaining time in competition</Text>
       <View style={styles.timeContainer}>
       <Text style={styles.indicator}>Days</Text>
       <Text style={styles.indicator}>Hours</Text>

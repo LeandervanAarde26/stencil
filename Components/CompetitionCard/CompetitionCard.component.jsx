@@ -15,7 +15,7 @@ export default function CompetitionCard({
   contestants,
   image,
   navigation,
-  judging
+  judging,
 }) {
   const width = Dimensions.get("window").width;
   const unixTimestamp = remainingTime;
@@ -26,14 +26,13 @@ export default function CompetitionCard({
     minutes: 0,
     seconds: 0,
   });
-  const [ loadEnd, setLoadEnd] = useState(false)
+  const [loadEnd, setLoadEnd] = useState(false);
 
-  const {days, hours, minutes, seconds} = countdown
+  const { days, hours, minutes, seconds } = countdown;
 
   const onLoadEnd = () => {
-    setLoadEnd(prev => !prev);
-  }
-
+    setLoadEnd((prev) => !prev);
+  };
 
   useEffect(() => {
     const calculateTimeDifference = () => {
@@ -74,7 +73,11 @@ export default function CompetitionCard({
   return (
     <View style={[styles.container, { width: width - 20 }]}>
       <Text style={TextStyles.headingOne}>{competitionName}</Text>
-      <Image source={{ uri: image }} style={styles.image} onLoadEnd={onLoadEnd} />
+      <Image
+        source={{ uri: image }}
+        style={styles.image}
+        onLoadEnd={onLoadEnd}
+      />
       <View style={styles.innerContainer}>
         <Timer countDown={countdown} />
         <View style={styles.contestantsContainer}>
@@ -93,22 +96,28 @@ export default function CompetitionCard({
             size={25}
             color={Colors.secondary}
           />
-          <Text style={TextStyles.smallText}>{contestants}/100 Contestants</Text>
+          <Text style={TextStyles.smallText}>
+            {contestants}/100 Contestants
+          </Text>
         </View>
         <View style={styles.buttonContainer}>
-          {
-            days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0
-            ?
-            null
-            :
-            <Buttn
-            buttonType={"primary"}
-            label={"Enter"}
-            onPressHandler={navigation}
-            icon={"add-circle-outline"}
-          />
-          }
-          <Buttn buttonType={"secondary"} label={"Judge"} icon={"gavel"} onPressHandler={judging}/>
+          {days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0 ? null : (
+            <>
+              <Buttn
+                buttonType={"primary"}
+              label={"Enter"}
+                onPressHandler={navigation}
+                icon={"add-circle-outline"}
+              />
+
+              <Buttn
+                buttonType={"secondary"}
+                label={"Judge"}
+                icon={"gavel"}
+                onPressHandler={judging}
+              />
+            </>
+          )}
         </View>
       </View>
     </View>

@@ -11,6 +11,9 @@ import {
   where,
   documentId,
   deleteDoc,
+  FieldValue,
+  increment,
+  arrayUnion,
 } from "firebase/firestore";
 import { db } from "../Utils/Firebase";
 import { uploadImages } from "./firebase.storage";
@@ -104,6 +107,8 @@ export const EnterCompetition = async (entry, user) => {
       name: entry.name,
       user: user,
       competition: entry.competition,
+      votes: 0,
+      voters: [],
     });
 
     const querySnapshot = await getDocs(
@@ -211,9 +216,23 @@ export const resetCompetitions = async (id, newTime, newReset) => {
       remainingTime: newTime,
       resetDate: newReset,
     });
-    console.log("reset")
+    console.log("reset");
 
-    return true
+    return true;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const voteOnCompetition = async (userId, id, direction) => {
+  try {
+    const docRef = doc(db, "entries", id);
+    const updateVotes = await updateDoc(docRef, {
+      voters: arrayUnion(userId),
+      votes: direction === "Left" ? increment(-1) : increment(1),
+    });
+
+    return true;
   } catch (error) {
     console.log(error);
   }

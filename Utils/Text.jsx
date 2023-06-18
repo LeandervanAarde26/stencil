@@ -19,7 +19,7 @@ export const TextStyles = StyleSheet.create({
         color: Colors.White,
         fontWeight: "bold",
         // textAlign: "center",
-        marginBottom: 20,
+        marginBottom: 15,
     },
 
     headingFour:{

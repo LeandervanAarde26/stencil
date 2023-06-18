@@ -11,6 +11,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { getAllCompetitions } from "../services/firestore.db";
 import { FireBaseProvider } from "../store/FirebaseUser.context";
 import { FireBaseCompetitionProvider } from "../store/FireBaseCompetitions.context";
+import Leaderboard from "../Screens/Leaderboard/Leaderboard.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -76,7 +77,14 @@ export default function Home() {
               ),
             }}
           />
-
+          <Tab.Screen
+            name="Leaderboard"
+            component={Leaderboard}
+            options={{
+              tabBarButton: () => null,
+              tabBarVisible:false 
+          }}
+          />
           <Tab.Screen
             name={"Styles"}
             component={Categories}

@@ -9,7 +9,6 @@ export const styles = StyleSheet.create({
   },
   informationContainer: {
     flex: 0.4,
-    
   },
 
   buttonContainer: {
@@ -21,63 +20,73 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 30,
-
-
-    //  backgroundColor : 'red'
+  },
+  information: {
+    // backgroundColor: 'red',
+    flex: 0.4,
+    gap: 2,
+    padding: 5,
   },
 
-  artworkTitle:{
+  artworkTitle: {
     fontSize: 22,
     color: Colors.White,
-    fontWeight: 'bold',
-    textAlign: 'left',
+    fontWeight: "bold",
+    textAlign: "left",
     paddingLeft: 25,
-    marginTop: 20
+    marginTop: 20,
   },
 
-  heading:{
+  heading: {
     fontSize: 20,
     color: Colors.White,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    width: '45%'
+    fontWeight: "bold",
+    textAlign: "center",
+    width: "45%",
   },
-  artistInfo:{
-    flexDirection: 'row',
-    alignItems: 'center',
+  artistInfo: {
+    flexDirection: "row",
+    alignItems: "center",
     paddingLeft: 25,
     gap: 15,
-    width: '40%',
+    width: "40%",
   },
 
-  artContainer:{
+  artContainer: {
     gap: 12,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     marginTop: 10,
   },
 
-  done:{
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
+  done: {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
     top: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     gap: 20,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
 
-  subText:{
+  subText: {
     color: Colors.White,
     fontSize: 13,
     fontWeight: 400,
-    textAlign: 'center'
-},
+    textAlign: "center",
+  },
 
-  noMoreEntries:{
+  noMoreEntries: {
     color: Colors.White,
     fontSize: 24,
-    fontWeight: 'bold'
-  }
+    fontWeight: "bold",
+  },
+  buttonsContainer: {
+    height: 45,
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    gap: 15,
+    marginTop: 10,
+  },
 });
