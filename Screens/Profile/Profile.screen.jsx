@@ -25,7 +25,7 @@ import {
   updateAuthProfile,
 } from "../../services/firebase.services";
 import { FirebaseContext } from "../../store/FirebaseUser.context";
-import { updateProfile, updateProfileImage } from "../../services/firestore.db";
+import { getCategoryWinners, updateProfile, updateProfileImage } from "../../services/firestore.db";
 
 export default function Profile({ navigation }) {
   const [image, setImage] = useState(null);
@@ -50,12 +50,6 @@ export default function Profile({ navigation }) {
       const updateImage = await updateProfileImage( res.assets[0].uri, user);
     }
   };
-
-  // useEffect(() => {
-  //   console.log("CURRENTLY LOGGED IN USER", values);
-  //   console.log("CURRENTUSER", fireBaseUserInformation.userId)
-  // });
-
   const deleteMyAccount = async () => {
    const deleted = await deleteAccount();
 

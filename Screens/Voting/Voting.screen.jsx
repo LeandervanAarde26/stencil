@@ -1,5 +1,5 @@
 import { Image, Text, View, Linking } from "react-native";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { styles } from "./Voting.styles";
 import Buttn from "../../Components/Button/Button.component";
 import VoteCard from "../../Components/VoteCard/VoteCard.component";
@@ -10,11 +10,14 @@ import { addProjectsToDataBase } from "../../services/firebase.services";
 import {
   getAllEntries,
   getAllTesterEntries,
+  testFunction,
   voteOnCompetition,
 } from "../../services/firestore.db";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { TextStyles } from "../../Utils/Text";
 import { FirebaseContext } from "../../store/FirebaseUser.context";
+import { registerForPushNotificationsAsync, sendPushNotification } from "../../store/pushNotifications";
+import * as Notifications from 'expo-notifications';
 
 export default function Voting({ route, navigation }) {
   const [cardsDone, setCardsDone] = useState(false);
@@ -36,6 +39,28 @@ export default function Voting({ route, navigation }) {
     //   setCardsDone(true);
     // }
   };
+  const [pushNotToken, setPushNotToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef()
+  const responseListener = useRef();
+
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setPushNotToken(token));
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+
+      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+        console.log(response)
+      });
+
+      return () => {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+        Notifications.removeNotificationSubscription(responseListener.current);
+      }
+    })
+
+  },[])
 
   const [index, setIndex] = useState(0);
 
@@ -49,6 +74,7 @@ export default function Voting({ route, navigation }) {
 
   const viewLeaderBoard = () => {
     navigation.navigate("Leaderboard")
+    console.log("registered click")
   }
 
   const swipedDirection = async (swipeDirection, id) => {
@@ -61,6 +87,7 @@ export default function Voting({ route, navigation }) {
   // Get all entries and set it there
   useFocusEffect(
     useCallback(() => {
+ 
       const getUserEntries = async () => {
         const allEntries = await getAllEntries();
         let nextStep =  allEntries.filter((document) => {
@@ -77,6 +104,7 @@ export default function Voting({ route, navigation }) {
           );
         }
         setEntries(filteredEntries);
+       
       };
   
       getUserEntries();
@@ -139,8 +167,9 @@ export default function Voting({ route, navigation }) {
         <Buttn
           label={"Leaderboard"}
           buttonType={"secondary"}
-          icon={"leaderboard"}
           onPressHandler={viewLeaderBoard}
+          icon={"leaderboard"}
+
         />
       </View>
 
@@ -152,8 +181,7 @@ export default function Voting({ route, navigation }) {
             There are no more entries in Neo Traditional, come back later to
             explore more tattoos!
           </Text>
-
-          <Buttn buttonType={"primaryOutline"} label={"explore categories"} />
+          <Buttn buttonType={"primaryOutline"} label={"explore categories"} onPressHandler={() => navigation.navigate("Competitions")} />
         </View>
       ) : (
         <>

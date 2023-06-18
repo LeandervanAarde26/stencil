@@ -13,8 +13,10 @@ import CompetitionCard from "../../Components/CompetitionCard/CompetitionCard.co
 import { addProjectsToDataBase } from "../../services/firebase.services";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import {
+  addUserWin,
   getAllCompetitions,
-  resetCompetitions,
+  getCategoryWinners,
+
 } from "../../services/firestore.db";
 import { Colors } from "../../Utils/Colors";
 import { TextStyles } from "../../Utils/Text";
@@ -23,10 +25,10 @@ import { FireBaseCompetitionContext } from "../../store/FireBaseCompetitions.con
 export default function Competitions({ navigation, route }) {
   const fireBaseCompetitionData = useContext(FireBaseCompetitionContext);
   const [comps, setComps] = useState(null);
+
   const enterCompetition = (category) => {
     navigation.navigate("Enter", { category: category });
   };
-
 
   const routeParams = route.params;
   const isFocused = useIsFocused();
@@ -40,67 +42,20 @@ export default function Competitions({ navigation, route }) {
   let randomIndex = Math.floor(Math.random() * loadingMessages.length);
 
   const convertTimeToSeconds = (days, hours) => {
-      const today = new Date();
-      const todayD = new Date(today);
-      todayD.setDate(today.getDate() + days);
-      todayD.setHours(hours, 0, 0, 0);
-      const convertedValue = todayD.getTime()/1000
-      return convertedValue
-  }
-
-  const resetCompetitionDate = async (values) => {
-    const randomNumber = Math.floor(Math.random() * 8) + 3;
-    const randomReset = randomNumber + 4
-    const todaysDate = new Date();
-    const currentHour = todaysDate.getHours();
-    const finalVal = convertTimeToSeconds(0 , currentHour)
-    const finalNewDate = convertTimeToSeconds(randomNumber, 15)
-    const finalReset  = convertTimeToSeconds(randomReset, 15)
-    const hourRangeStart =
-      new Date(
-        todaysDate.getFullYear(),
-        todaysDate.getMonth(),
-        todaysDate.getDate(),
-        currentHour,
-        0,
-        0,
-        0
-      ).getTime() / 1000;
-    const hourRangeEnd =
-      new Date(
-        todaysDate.getFullYear(),
-        todaysDate.getMonth(),
-        todaysDate.getDate(),
-        currentHour +1,
-        0,
-        0,
-        0
-      ).getTime() / 1000;
-
-    console.log("Hour Range Start:", hourRangeStart);
-    console.log("Hour Range End:", hourRangeEnd);
-
-    for (const val of values) {
-      if (
-        val.resetDate == finalVal ||
-        (val.resetDate > hourRangeStart && val.resetDate < hourRangeEnd)
-      ) {
-        console.log("Perfect match within the hour range");
-        await resetCompetitions(val.id, finalNewDate, finalReset);
-      }
-    }
+    const today = new Date();
+    const todayD = new Date(today);
+    todayD.setDate(today.getDate() + days);
+    todayD.setHours(hours, 0, 0, 0);
+    const convertedValue = todayD.getTime() / 1000;
+    return convertedValue;
   };
 
   useEffect(() => {
     if (fireBaseCompetitionData && route.params?.cat !== undefined) {
       setComps(fireBaseCompetitionData);
     }
-
-    fireBaseCompetitionData &&
-      fireBaseCompetitionData &&
-      resetCompetitionDate(fireBaseCompetitionData);
   }, [fireBaseCompetitionData, route.params?.cat]);
-
+  
   useEffect(() => {
     const unsubscribe = navigation.addListener("blur", () => {
       navigation.setParams({ cat: null });
