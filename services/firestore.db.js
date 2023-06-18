@@ -47,6 +47,7 @@ export const createNewUser = async (
       website: "",
       Instagram: "",
       contactDetails: "",
+      competitionsWon: 0
     });
   } catch (error) {
     console.log(`fault ${error}`);
