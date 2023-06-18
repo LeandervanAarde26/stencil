@@ -62,7 +62,7 @@
 ## About the Project
 <!-- header image of project -->
 
-![image10](https://drive.google.com/uc?export=view&id=1eHEyg7EDosaCBDD3KXpFT8KljRSXceLk)
+![image1](./assets/READMEASSETS/RPReplay_Final1687114048_MOV_AdobeExpress.gif)
 ### Project Description
 Stencil is a cross-platform mobile application that allows tattoo enthusiats and tattoo artist to connect through art, giving everyone the opportunity to enter and vote on competitions related to different tattoo styles
 
