@@ -233,11 +233,6 @@ What aspects of this final build contribute to the `Above And Beyond` Component 
 ![image7](./assets/READMEASSETS/Mockup3.png)
 ![image1](./assets/READMEASSETS/RPReplay_Final1687114048_MOV_AdobeExpress.gif)
 
-<!-- VIDEO DEMONSTRATION -->
-### Video Demonstration
-To see a run through of the application, click below:
-[View Demonstration](https://drive.google.com/uc?export=view&id=14hkEiHzcPIWxUBJUMf3PfueCY7b6r7cy)
-
 
 
 See the [open issues](https://github.com/LeandervanAarde/stencil/issues) for a list of proposed features (and known issues).
