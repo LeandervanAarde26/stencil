@@ -163,7 +163,7 @@ Throughout the conceptual process of this application , I wanted to create an ap
 
 ### Ideation
 
-![image7](https://drive.google.com/uc?export=view&id=15Ak4f3V8ks2v-ODCgxR1PhZh5V9bj792)
+![image4]./assets/READMEASSETS/mock1.png)
 
 
 <!-- DEVELOPMENT PROCESS -->
