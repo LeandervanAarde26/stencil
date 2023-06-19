@@ -163,7 +163,7 @@ Throughout the conceptual process of this application , I wanted to create an ap
 
 ### Ideation
 
-![image4]./assets/READMEASSETS/mock1.png)
+![image4](./assets/READMEASSETS/mock1.png)
 
 
 <!-- DEVELOPMENT PROCESS -->
@@ -228,17 +228,11 @@ What aspects of this final build contribute to the `Above And Beyond` Component 
 
 ### Mockups
 
-![image10](https://drive.google.com/uc?export=view&id=1zzX0_a9xiXxjoYKgPtl_Xt2tTMQ2aEOF)
+![image5](./assets/READMEASSETS/mock1.png)
+![image6](./assets/READMEASSETS/Mockup2.png)
+![image7](./assets/READMEASSETS/Mockup3.png)
+![image1](./assets/READMEASSETS/RPReplay_Final1687114048_MOV_AdobeExpress.gif)
 
-
-![image11](https://drive.google.com/uc?export=view&id=1IhHhwIUjGGTzSM-QQM9VIiDyU9uOaT8q)
-
-![image12](https://drive.google.com/uc?export=view&id=1FNTBQIx_5I9htBplz6mkH5Mu5UjqZfrU)
-
-![image13](https://drive.google.com/uc?export=view&id=1q9s6wPYBln5mQhK2TlcRmh4u9wxJf_ul)
-
-![image14](https://drive.google.com/uc?export=view&id=1BSNR9__Fe-ZxR01BQiAyxQH12mCM8J5R)
-![image15](https://drive.google.com/uc?export=view&id=1er5ijB9fxfpkoel7XEKQ1a-K2XZmMbP5)
 
 
 1AZRxRysJt9lKHe_fatdQWGNezd3PFrUv
