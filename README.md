@@ -233,9 +233,6 @@ What aspects of this final build contribute to the `Above And Beyond` Component 
 ![image7](./assets/READMEASSETS/Mockup3.png)
 ![image1](./assets/READMEASSETS/RPReplay_Final1687114048_MOV_AdobeExpress.gif)
 
-
-
-1AZRxRysJt9lKHe_fatdQWGNezd3PFrUv
 <!-- VIDEO DEMONSTRATION -->
 ### Video Demonstration
 To see a run through of the application, click below:
