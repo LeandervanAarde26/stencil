@@ -119,7 +119,7 @@ Run the following in the command-line to install all the required dependencies:
 
 <!-- note how you can use your gitHub link. Just make a path to your assets folder -->
 
-![image2](https://drive.google.com/uc?export=view&id=1eHEyg7EDosaCBDD3KXpFT8KljRSXceLk)
+![image2](./assets/READMEASSETS/mock1.png)
 
 
 
@@ -142,7 +142,7 @@ Stencil has incorporated a voting system similiar to the tinder swipe, left for 
 Competitions have categories associated with them, meaning if you specialise in a style, you can only view the competitions of that style if you want
 
 
-![image3](https://drive.google.com/uc?export=view&id=13fqsiSfRAUu6tCl278f3IpNFPU5YXa2a)
+![image3](./assets/READMEASSETS/Mockup2.png)
 
 ### Choose your role
 On sign up users can select a role between artist or Enthusiast, this means that if an artist has something you want they can contact you and vice versa
