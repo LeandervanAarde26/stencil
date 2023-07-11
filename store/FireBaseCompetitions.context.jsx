@@ -21,7 +21,7 @@ export const FireBaseCompetitionProvider = ({ children }) => {
     
     if (reset) {
       const userUpdate = await getCategoryWinners();
-      const deleteDocuments = resetEntries()
+      const deleteDocuments = await resetEntries()
       console.log(userUpdate);
     }
   };

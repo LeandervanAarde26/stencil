@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, Children } from "react";
 import { getCurrUser } from "../services/firebase.services";
 import { getUserInformation } from "../services/firestore.db";
-
+import AsyncStorage from 'react-native';
 export const FirebaseContext = createContext();
 
 export const FireBaseProvider = ({ children }) => {
@@ -13,6 +13,7 @@ export const FireBaseProvider = ({ children }) => {
       const user = getCurrUser();
       const userDataBaseInformation = await getUserInformation(user.uid);
       setuser(userDataBaseInformation);
+
       setUserId(user.uid)
     };
     data();

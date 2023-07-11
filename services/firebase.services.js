@@ -6,7 +6,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { Auth } from "../Utils/Firebase";
-import { addAllProjs, createNewUser, deleteCurrentUser } from "./firestore.db";
+import { createNewUser, deleteCurrentUser } from "./firestore.db";
 
 export const registerUser = async (username, email, password, role) => {
 

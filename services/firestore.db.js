@@ -19,6 +19,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../Utils/Firebase";
 import { uploadImages } from "./firebase.storage";
+import { getCurrUser } from "./firebase.services";
 
 const convertTimeToSeconds = (days, hours) => {
   const today = new Date();
@@ -112,12 +113,13 @@ export const getCategories = async () => {
 export const EnterCompetition = async (entry, user) => {
   try {
     console.log(entry);
+    const enteredUser = await getCurrUser()
     const uri = await uploadImages(entry.image, `entries/${entry.name}`);
     const docRef = await addDoc(collection(db, "entries"), {
       description: entry.description,
       image: uri,
       name: entry.name,
-      user: user,
+      user: enteredUser.uid,
       competition: entry.competition,
       votes: 0,
       voters: [],
@@ -353,10 +355,9 @@ export const finalResetCompetitions = async () => {
       }
     });
     await Promise.all(updatePromises);
-    console.log("VALUES", updatePromises);
 
     reset = updatePromises.some((promise) => promise !== undefined);
-
+    console.log("Heyrr")
     return reset;
   } catch (error) {
     console.log(error);
