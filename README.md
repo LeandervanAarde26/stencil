@@ -186,6 +186,7 @@ The `Development Process` is the technical implementations and functionality don
 * Gesture handler to make voting more pleasureable too the user. 
 * View your own profile and ammount of wins that you have 
 * Filter entries based on whether you have voted on it or not
+* The swiper was the biggest implementation for this project, this was achieved through reading [article1](https://nifty-bhabha-360145.netlify.app/animation/swipe-gestures/#:~:text=The%20main%20component%20that%20will,them%20properly%20in%20your%20components.) and [Tutorial](https://instamobile.io/react-native-controls/react-native-swipe-cards-tinder/), using the panresponder I was able to create a similiar swipe gesture to Tinders. 
 
 #### Firebase implementation
 <!-- stipulated the highlight you experienced with the project -->
