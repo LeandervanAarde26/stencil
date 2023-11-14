@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
   yes: {
     color: Colors.Success,
     fontSize: 18,
-    fontWeight: 700,
+    // fontWeight: 700,
   },
 
   noContainer: {

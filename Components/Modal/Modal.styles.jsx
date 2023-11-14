@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
       },
       textStyle: {
         color: 'white',
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         textAlign: 'center',
       },
       modalText: {
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         color: Colors.White,
         fontSize: 17,
-        fontWeight: 700,
+        // fontWeight: 700,
       },
 
       modalImage: {

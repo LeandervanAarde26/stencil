@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
   },
   description: {
     color: Colors.White,
-    fontWeight: 600,
+    // fontWeight: 600,
     fontSize: 14,
   },
 
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
 
   contestants: {
     color: Colors.White,
-    fontWeight: "600",
+    // fontWeight: "600",
     fontSize: 12,
   },
 });

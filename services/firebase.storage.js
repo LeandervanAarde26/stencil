@@ -4,6 +4,7 @@ import { getDownloadURL,ref, uploadBytes } from "firebase/storage";
 export const uploadImages = async (filesUri, refName) => {
     try {
         console.log("Busy Uploading...");
+        console.log(filesUri, refName)
         const response = await fetch(filesUri);
         if (!response.ok) {
           throw new Error("Network request failed");

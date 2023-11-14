@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     sectionHeader:{
         fontSize: 21,
         color: Colors.White,
-        fontWeight: '600',
+        // fontWeight: '600',
         paddingVertical: 10
     },
 
@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
         color: Colors.White,
         textAlign: 'center',
         fontSize: 24,
-        fontWeight: '600'
+        // fontWeight: '600'
     },
 
     role:{
