@@ -22,10 +22,10 @@ import {
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { TextStyles } from "../../Utils/Text";
 import { FirebaseContext } from "../../store/FirebaseUser.context";
-import {
-  registerForPushNotificationsAsync,
-  sendPushNotification,
-} from "../../store/pushNotifications";
+// import {
+//   registerForPushNotificationsAsync,
+//   sendPushNotification,
+// } from "../../store/pushNotifications";
 import * as Notifications from "expo-notifications";
 
 export default function Voting({ route, navigation }) {
@@ -53,27 +53,31 @@ export default function Voting({ route, navigation }) {
   const notificationListener = useRef();
   const responseListener = useRef();
 
-  useEffect(() => {
-    registerForPushNotificationsAsync().then((token) => setPushNotToken(token));
-    notificationListener.current =
-      Notifications.addNotificationReceivedListener((notification) => {
-        setNotification(notification);
-
-        responseListener.current =
-          Notifications.addNotificationResponseReceivedListener((response) => {
-            console.log(response);
-          });
-
-        return () => {
-          Notifications.removeNotificationSubscription(
-            notificationListener.current
-          );
-          Notifications.removeNotificationSubscription(
-            responseListener.current
-          );
-        };
-      });
-  }, []);
+  // useEffect(() => {
+  //     try {
+  //       registerForPushNotificationsAsync().then((token) => setPushNotToken(token));
+  //       notificationListener.current =
+  //         Notifications.addNotificationReceivedListener((notification) => {
+  //           setNotification(notification);
+    
+  //           responseListener.current =
+  //             Notifications.addNotificationResponseReceivedListener((response) => {
+  //               console.log(response);
+  //             });
+    
+  //           return () => {
+  //             Notifications.removeNotificationSubscription(
+  //               notificationListener.current
+  //             );
+  //             Notifications.removeNotificationSubscription(
+  //               responseListener.current
+  //             );
+  //           };
+  //         });
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  // }, []);
 
   const [index, setIndex] = useState(0);
 
