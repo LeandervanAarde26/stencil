@@ -1,6 +1,3 @@
-# Stencil
-
-
 <!-- Repository Information & Links-->
 <br />
 
@@ -9,79 +6,78 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/LeandervanAarde/stencil)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/LeandervanAarde/stencil)
 
-<!-- HEADER SECTION -->
 
-<h5 align="center" style="padding:0;margin:0;">Leander van Aarde - 200211</h5>
-<h6 align="center">Stencil - Term 2 | 2023</h6>
+<!-- LeandervanAarde/FikaClothing -->
+
+<!-- HEADER SECTION -->
+<h3 align="center" style="padding:0;margin:0;">Leander van Aarde</h3>
+<h5 align="center" style="padding:0;margin:0;">200211</h5>
+<h6 align="center">Stencil | 2023</h6>
 </br>
 <p align="center">
 
-  <a href="https://github.com/">
-    <img src="/assets/Logo.png" alt="Logo" width="300" height="200">
+  <a href="https://github.com/LeandervanAarde/stencil">
+    <img src="./assets/Logo.png" alt="Logo" width="140">
   </a>
+<!-- https://drive.google.com/file/d/19JkfDgvGLzHQ1AVMvgv9rLTFR0HzJBVq/view?usp=sharing -->
+  
+  <h3 align="center">Stencil | Tattoo competition Application</h3>
 
   <p align="center">
     Stencil is a competition app for Tattoo enthusiats and Artists who share a passion in art
-     <br>
-
-    
+    <br />
    <br />
    <br />
-    <a href="https://github.com/https://github.com/LeandervanAarde/stencil">Report Bug</a>
+   <!-- INSERT UP UP -->
     ·
-    <a href="https://github.com/https://github.com/LeandervanAarde/stencil">Request Feature</a>
+    <a href="https://github.com/LeandervanAarde/stencil/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/LeandervanAarde/stencil/issues">Request Feature</a>
 </p>
 <!-- TABLE OF CONTENTS -->
 
 ## Table of Contents
 
-* :skull: [About the Project](#about-the-project)
-  * [Project Description](#project-description)
-  * [Built With](#built-with)
-* :skull: [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [How to install](#how-to-install)
-* :skull: [Features and Functionality](#features-and-functionality)
-* :skull: [Concept Process](#concept-process)
-   * [Ideation](#ideation)
-   * [Wireframes](#wireframes)
+* :skull:  [About the Project](#about-the-project)
+* :skull:  [Project Description](#project-description)
+* :skull:  [Built With](#built-with)
+* :skull:  [Getting Started](#getting-started)
+* :skull:  [Prerequisites](#prerequisites)
+* :skull:  [How to install](#how-to-install)
+* :skull:  [Features and Functionality](#features-and-functionality)
+* :skull:  [Concept Process](#concept-process)
 * :skull:  [Development Process](#development-process)
-   * [Implementation Process](#implementation-process)
-        * [Highlights](#highlights)
-        * [Challenges](#challenges)
-   * [Future Implementation](#peer-reviews)
-* :skull: [Final Outcome](#final-outcome)
-    * [Mockups](#mockups)
-* :skull: [Conclusion](#conclusion)
-* :skull: [License](#license)
-* :skull: [Contact](#contact)
-* :skull: [Acknowledgements](#acknowledgements)
+* :skull:  [Highlights](#highlights)
+* :skull:  [Challenges](#challenges)
+* :skull:  [Future Implementation](#peer-reviews)
+* :skull:  [Final Outcome](#final-outcome)
+* :skull:  [Mockups](#mockups)
+* :skull:  [Video Demonstration](#video-demonstration)
+* :skull:  [Conclusion](#conclusion)
+* :skull:  [License](#license)
+* :skull:  [Contact](#contact)
+* :skull:  [Acknowledgements](#acknowledgements)
 
 <!--PROJECT DESCRIPTION-->
 ## About the Project
 <!-- header image of project -->
+
 ![image1](./assets/READMEASSETS/RPReplay_Final1687114048_MOV_AdobeExpress.gif)
-
 ### Project Description
-
 Stencil is a cross-platform mobile application that allows tattoo enthusiats and tattoo artist to connect through art, giving everyone the opportunity to enter and vote on competitions related to different tattoo styles
 
 ### Built With
-
 * [ReactNative](https://reactnative.dev/)
 * [Expo](https://expo.dev/)
 * [Firebase](https://firebase.google.com/)
-* React Native PanResponder
 
-<!-- GETTING STARTED -->
-<!-- Make sure to add appropriate information about what prerequesite technologies the user would need and also the steps to install your project on their own mashines -->
 ## Getting Started
 
 To get a copied file of this repository, follow the steps below to get it installed on your local machine. 
 
 ### Prerequisites
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. 
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
 ## Getting Started
 
@@ -186,7 +182,6 @@ The `Development Process` is the technical implementations and functionality don
 * Gesture handler to make voting more pleasureable too the user. 
 * View your own profile and ammount of wins that you have 
 * Filter entries based on whether you have voted on it or not
-* The swiper was the biggest implementation for this project, this was achieved through reading [article1](https://nifty-bhabha-360145.netlify.app/animation/swipe-gestures/#:~:text=The%20main%20component%20that%20will,them%20properly%20in%20your%20components.) and [Tutorial](https://instamobile.io/react-native-controls/react-native-swipe-cards-tinder/), using the panresponder I was able to create a similiar swipe gesture to Tinders. 
 
 #### Firebase implementation
 <!-- stipulated the highlight you experienced with the project -->
