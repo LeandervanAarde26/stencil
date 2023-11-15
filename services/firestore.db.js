@@ -114,10 +114,10 @@ export const EnterCompetition = async (entry, user) => {
   try {
     console.log(entry);
     const enteredUser = await getCurrUser()
-    // const uri = await uploadImages(entry.image, `entries/${entry.name}`);
+    const uri = await uploadImages(entry.image, `entries/${entry.name}`);
     const docRef = await addDoc(collection(db, "entries"), {
       description: entry.description,
-      image: await uploadImages(entry.image, `entries/${entry.name}`),
+      image: uri,
       name: entry.name,
       user: enteredUser.uid,
       competition: entry.competition,

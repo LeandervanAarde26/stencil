@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   indicator: {
     color: Colors.secondary,
     fontSize: 13,
-    // fontWeight: "500",
+    fontWeight: "500",
     width: "25%",
     textAlign: "center",
   },
@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
   timer: {
     color: Colors.White,
     fontSize: 35,
-    // fontWeight: "bold",
+    fontWeight: "bold",
     width: "19%",
     textAlign: "center",
   },
@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
   timerDone: {
     color: Colors.Danger,
     fontSize: 35,
-    // fontWeight: "bold",
+    fontWeight: "bold",
     width: "19%",
     textAlign: "center",
   },
@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
   dot: {
     color: Colors.White,
     fontSize: 35,
-    // fontWeight: "bold",
+    fontWeight: "bold",
 
     textAlign: "center",
   },

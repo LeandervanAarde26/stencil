@@ -13,6 +13,7 @@ import { Picker } from "@react-native-picker/picker";
 import Buttn from "../../Components/Button/Button.component";
 import { Colors } from "../../Utils/Colors";
 import * as IPicker from "expo-image-picker";
+
 import { TextStyles } from "../../Utils/Text";
 // import { CommonActions } from 'react-navigation/native';
 import {
@@ -62,8 +63,8 @@ export default function Enter({ route }) {
     let res = await IPicker.launchImageLibraryAsync({
       mediaTypes: IPicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 5],
-      quality: 0.7,
+      aspect: [4, 3],
+      quality: 1,
     });
 
     if (!res.canceled) {

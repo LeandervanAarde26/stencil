@@ -4,7 +4,7 @@ import { Colors } from "../../Utils/Colors";
 export const buttonStyles = StyleSheet.create({
   text: {
     color: Colors.White,
-    // fontWeight: 500,
+    fontWeight: 500,
     fontSize: 15,
   },
 

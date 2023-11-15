@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
   artworkTitle: {
     fontSize: 22,
     color: Colors.White,
-    // fontWeight: "bold",
+    fontWeight: "bold",
     textAlign: "left",
     paddingLeft: 25,
     marginTop: 20,
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
   heading: {
     fontSize: 20,
     color: Colors.White,
-    // fontWeight: "bold",
+    fontWeight: "bold",
     textAlign: "center",
     width: "45%",
   },
@@ -73,14 +73,14 @@ export const styles = StyleSheet.create({
   subText: {
     color: Colors.White,
     fontSize: 13,
-    // fontWeight: 400,
+    fontWeight: 400,
     textAlign: "center",
   },
 
   noMoreEntries: {
     color: Colors.White,
     fontSize: 24,
-    // fontWeight: "bold",
+    fontWeight: "bold",
   },
   buttonsContainer: {
     height: 45,

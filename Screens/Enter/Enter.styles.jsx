@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     heading:{
         color: Colors.White,
         fontSize: 24,
-        // fontWeight: 'bold',
+        fontWeight: 'bold',
     },
 
     pickerContainer:{
