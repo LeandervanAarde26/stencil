@@ -21,7 +21,7 @@
   </a>
 <!-- https://drive.google.com/file/d/19JkfDgvGLzHQ1AVMvgv9rLTFR0HzJBVq/view?usp=sharing -->
   
-  <h3 align="center">Stencil | Tattoo competition Application</h3>
+  <h3 align="center">Stencil (NO LONGER SUPPORTED) | Tattoo competition Application</h3>
 
   <p align="center">
     Stencil is a competition app for Tattoo enthusiats and Artists who share a passion in art
